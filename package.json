@@ -1,0 +1,21 @@
+{
+  "name": "react-popup-list",
+  "version": "0.1.0",
+  "description": "Dropdown form component for React",
+  "main": "index.js",
+  "repository": "https://github.com/clubajax/react-popup-list.git",
+  "author": "clubajax <anm9tr@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "storybook": "start-storybook -p 9001 -c .storybook"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.0",
+    "@storybook/react": "^4.1.1",
+    "babel-loader": "^8.0.4"
+  },
+  "dependencies": {
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3"
+  }
+}
