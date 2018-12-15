@@ -1,3 +1,23 @@
-.dropdown{
-    background-color: red;
+.react-dropdown{
+
+    button{
+        background-color: transparent;
+        border: 1px solid #999;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        padding: 10px;
+        display: flex;
+        font-size: 14px;
+        &:hover{
+            background-color: #eee;
+        }
+        span{
+            flex: 1 1 auto;
+            align-self: center;
+        }
+        .react-icon{
+            flex: 0 0 20px;
+        }
+    }
 }

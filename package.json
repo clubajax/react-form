@@ -24,6 +24,7 @@
   "dependencies": {
     "@clubajax/key-nav": "^1.1.2",
     "@clubajax/on": "^2.1.8",
+    "classnames": "^2.2.6",
     "react": "^16.6.3",
     "react-dom": "^16.6.3"
   }
