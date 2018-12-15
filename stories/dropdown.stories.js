@@ -2,6 +2,8 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Dropdown from '../src/Dropdown';
 
+console.clear();
+
 const items = [
     {
         value: 'a',
@@ -16,5 +18,5 @@ const items = [
 ]
 storiesOf('Dropdown', module)
   .add('Simple', () => (
-      <Dropdown items={items} placeholder="Choose your kata..." />
+      <Dropdown items={items} placeholder="Choose your kata..." label="Forms" />
   ));
