@@ -7,14 +7,23 @@
   "author": "clubajax <anm9tr@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "storybook": "start-storybook -p 9001 -c .storybook"
+    "story": "start-storybook -p 9001 -c .storybook"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",
+    "@storybook/addon-info": "^4.1.1",
     "@storybook/react": "^4.1.1",
-    "babel-loader": "^8.0.4"
+    "@types/storybook__react": "^4.0.0",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.4",
+    "node-sass": "^4.11.0",
+    "react-docgen-typescript-webpack-plugin": "^1.1.0",
+    "sass-loader": "^7.1.0",
+    "typescript": "^3.2.2"
   },
   "dependencies": {
+    "@clubajax/key-nav": "^1.1.2",
+    "@clubajax/on": "^2.1.8",
     "react": "^16.6.3",
     "react-dom": "^16.6.3"
   }
