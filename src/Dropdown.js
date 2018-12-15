@@ -6,7 +6,8 @@ export default class Dropdown extends React.Component {
     constructor () {
         super();
         this.state = {
-            selected: ''
+            selected: '',
+            label: ''
         }
         this.onChange = this.onChange.bind(this);
     }
@@ -18,14 +19,18 @@ export default class Dropdown extends React.Component {
         return <i className="material-icons react-icon">expand_more</i>
     }
 
-    onChange () {
-
+    onChange (value) {
+        const label = (this.props.items.find(item => item.value === value) || {}).label || '';
+        this.setState({
+            selected: value,
+            label
+        });
     }
 
     render () {
-        const { label, placeholder = 'Select One...' } = this.props;
-        const { selected } = this.state;
-        const content = selected || placeholder;
+        const { items = [], placeholder = 'Select One...' } = this.props;
+        const { label, selected } = this.state;
+        const content = label || placeholder;
 
         const className = classnames({
             'react-dropdown': true,
@@ -37,7 +42,7 @@ export default class Dropdown extends React.Component {
                     <span>{content}</span>
                     {this.getIcon()}
                 </button>
-                <Popup onChange={this.onChange}/>
+                <Popup onChange={this.onChange} items={items} selected={selected} />
             </div>
         );
     }

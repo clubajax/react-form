@@ -24,6 +24,11 @@
             flex: 0 0 20px;
         }
     }
+    &.has-placeholder{
+        button{
+            color: #aaa;
+        }
+    }
 }
 
 .react-popup{
@@ -40,6 +45,10 @@
         cursor: pointer;
         &:hover{
             background-color: #eee;
+        }
+        &.selected{
+            background-color: #333;
+            color: white;
         }
     }
 }

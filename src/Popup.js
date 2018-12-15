@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 
 export default class Popup extends React.Component {
     constructor () {
@@ -7,14 +8,22 @@ export default class Popup extends React.Component {
             selected: ''
         }
     }
+
     render () {
-        const { label } = this.props;
-        const { selected } = this.state;
+        const { label, items, onChange, selected } = this.props;
         return (
             <ul className="react-popup">
-                <li>Uno Item</li>
-                <li>Dos Item</li>
-                <li>Tre Item</li>
+                {items.map((item) => {
+                    const classname = classnames({
+                        'react-popup-item': true,
+                        selected: item.value === selected
+                    });
+                    return (
+                        <li className={classname} key={item.value} value={item.value} onClick={() => {
+                            onChange(item.value);
+                        }}>{item.label}</li>
+                    );
+                })}
             </ul>
         );
     }
