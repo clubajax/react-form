@@ -11,7 +11,11 @@ export default class Popup extends React.Component {
         const { label } = this.props;
         const { selected } = this.state;
         return (
-            <div className="react-popup"></div>
+            <ul className="react-popup">
+                <li>Uno Item</li>
+                <li>Dos Item</li>
+                <li>Tre Item</li>
+            </ul>
         );
     }
 }

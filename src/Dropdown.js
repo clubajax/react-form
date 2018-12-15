@@ -15,7 +15,7 @@ export default class Dropdown extends React.Component {
         if (this.props.getIcon) {
             return this.props.getIcon();
         }
-        return <i class="material-icons react-icon">expand_more</i>
+        return <i className="material-icons react-icon">expand_more</i>
     }
 
     onChange () {
