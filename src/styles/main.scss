@@ -1,3 +1,18 @@
+.ca-button{
+    border: 1px solid #666;
+    background-color: #999;
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+    outline: 0;
+    cursor: pointer;
+    &:hover{
+        background-color: #aaa;
+    }
+    &:focus{
+        box-shadow: 0 0 10px white inset;
+    }
+}
 .react-dropdown,
 .react-popup{
     box-sizing: border-box;
@@ -34,6 +49,9 @@
     }
 }
 
+.react-popup-container{
+    position: relative;
+}
 .react-popup{
     position: absolute;
     left: 0;

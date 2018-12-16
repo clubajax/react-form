@@ -28,7 +28,7 @@ export default class Dropdown extends React.Component {
     }
 
     componentWillUnmount () {
-        console.log('UNMOUNT');
+
     }
 
     getIcon () {

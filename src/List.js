@@ -45,16 +45,22 @@ export default class List extends React.Component {
 
     onBlur () {
         this.disconnect();
+        if (this.props.isMenu) {
+            this.setState({
+                selectedIndex: null,
+                active: false,
+                focusIndex: null,
+                value: null
+            })
+        }
     }
 
     onChange (e) {
         const value = e.target.getAttribute('value');
-        console.log('onChange', e.target, e.target.getAttribute('value'), this.props.items);
         this.select(this.props.items.findIndex(item => `${item.value}` === value));
     }
 
     select (index) {
-        console.log('select', index);
         this.setState({
             selectedIndex: index,
             value: index === -1 ? null : this.props.items[index].value
@@ -62,6 +68,9 @@ export default class List extends React.Component {
             const selected = this.node.querySelector('.react-list-item.focused');
             if (selected) {
                 selected.focus();
+                if(this.props.isMenu) {
+
+                }
             }
         });
     }
@@ -72,7 +81,6 @@ export default class List extends React.Component {
         }, () => {
             const focused = this.node.querySelector('.react-list-item.focused');
             if (focused) {
-                console.log('FOCUS', focused);
                 focused.focus();
             }
         });

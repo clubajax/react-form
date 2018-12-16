@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import on from '@clubajax/on';
+import List from './List';
 
 const ARIA_ITEM_PREFIX = 'react-item-';
 
@@ -8,80 +9,123 @@ export default class Popup extends React.Component {
     constructor () {
         super();
         this.state = {
-            selected: '',
-            open: false,
-            focusIndex: null
-        }
+            open: false
+        };
+        this.onNode = this.onNode.bind(this);
     }
 
     componentDidMount () {
-
-    }
-
-    componentDidUpdate () {
-        const { items } = this.props;
-        if (!items || !items.length) {
+        const { buttonId } = this.props;
+        console.log('buttonId', buttonId);
+        if (!buttonId) {
             return;
         }
-        console.log('IS.OPEN', this.props.open);
-        const { focusIndex } = this.state;
-        const index = focusIndex !== null ? focusIndex : 0;
-        if (this.props.open) {
-            this.keyHandle = on(document, 'keyup', (e) => {
-                switch (e.key) {
-                    case 'ArrowUp':
-                        console.log('UP');
-                        index = index - 1;
-                        if (index < 0) {
-                            index = items.length - 1;
-                        }
-                        break;
-                    case 'ArrowDown':
-                        console.log('DOWN');
-                        index = index + 1;
-                        if (index > items.length - 1) {
-                            index = 0;
-                        }
-                        break;
-                    default:
-                        return;
-                }
-                this.setState({ focusIndex: index });
-            });
-        } else if(this.keyHandle) {
-            this.keyHandle.remove();
+
+        this.keyHandle = on(document, 'keyup', (e) => {
+            switch (e.key) {
+                case 'Escape':
+                    this.close();
+                    break;
+                default:
+                    this.detectBlur(e);
+            }
+        });
+        this.keyHandle.pause();
+
+        this.clickHandle = on(document, 'click', () => {
+            this.delayedClose();
+        });
+        this.clickHandle.pause();
+
+        this.keyMainHandle = on(document, 'keyup', (e) => {
+            switch (e.key) {
+                case 'Enter':
+                case 'ArrowDown':
+                    this.open();
+                    break;
+            }
+        });
+        this.clickMainHandle = on(buttonId, 'click', () => {
+            const { open } = this.state;
+            if (open) {
+                this.close();
+            } else {
+                this.open();
+            }
+        });
+    }
+
+    open () {
+        if (this.state.open) {
+            return;
+        }
+        this.setState({ open: true });
+        setTimeout(() => {
+            this.keyHandle.resume();
+            this.clickHandle.resume();
+            this.node.firstElementChild.focus();
+        }, 400);
+    }
+
+    close () {
+        if (!this.state.open) {
+            return;
+        }
+        this.setState({ open: false });
+        this.keyHandle.pause();
+        this.clickHandle.pause();
+    }
+
+    delayedClose () {
+        setTimeout(() => {
+            this.close();
+        }, 200);
+    }
+
+    detectBlur (e) {
+        // called on key
+        if (this.props.isMenu && (e.key === 'Enter' || e.key === ' ')) {
+            this.delayedClose();
+            return;
+        }
+        const active = document.activeElement;
+        if (!this.parent.contains(active)) {
+            // console.log('active', active);
+            // console.log('parent', this.parent);
+            this.close();
+        }
+    }
+
+    onNode (node) {
+        if (node) {
+            const btn = document.getElementById(this.props.buttonId);
+            this.node = node;
+            this.parent = this.node;
+            while (!this.parent.contains(this.node) || !this.parent.contains(btn)) {
+                this.parent = this.parent.parentNode;
+            }
+            console.log('prent', this.parent);
         }
     }
 
     render () {
-        const { label, items, onChange, selected, open } = this.props;
+        const {
+            state: {
+                open
+            },
+            props: {
+                children
+            }
+        } = this;
         const classname = classnames({
             'react-popup': true,
             open
-        })
+        });
+        const expanded = open ? 'true' : 'false';
         return (
-            <ul className={classname} role="listbox">
-                {items.map((item) => {
-                    const sel = item.value === selected ? 'true' : 'false';
-                    const id = `${ARIA_ITEM_PREFIX}${item.value}`;
-                    return (
-                        <li
-                            role="option"
-                            aria-selected={sel}
-                            aria-activedescendant={id}
-                            aria-label={item.label}
-                            id={id}
-                            className="react-popup-item"
-                            key={item.value}
-                            value={item.value}
-                            tabIndex={-1}
-                            onClick={() => {
-                                onChange(item.value);
-                            }}
-                        >{item.label}</li>
-                    );
-                })}
-            </ul>
+            <div className={classname} aria-expanded={expanded} ref={this.onNode}>
+                {children}
+            </div>
         );
     }
 }
