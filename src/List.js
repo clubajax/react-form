@@ -54,6 +54,18 @@ export default class List extends React.Component {
         });
     }
 
+    focus (index) {
+        console.log('focus', index);
+        this.setState({
+            focusIndex: index
+        }, () => {
+            const focused = this.node.querySelector('.react-list-item.focused');
+            if (focused) {
+                focused.focus();
+            }
+        });
+    }
+
     connect () {
         const { items } = this.props;
         if (!items || !items.length) {
@@ -88,7 +100,7 @@ export default class List extends React.Component {
                     return;
             }
             console.log('index', index);
-            this.setState({ focusIndex: index });
+            this.focus(index);
         });
     }
 
