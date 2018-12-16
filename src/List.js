@@ -68,9 +68,6 @@ export default class List extends React.Component {
             const selected = this.node.querySelector('.react-list-item.focused');
             if (selected) {
                 selected.focus();
-                if(this.props.isMenu) {
-
-                }
             }
         });
     }
@@ -95,7 +92,6 @@ export default class List extends React.Component {
         let index = focusIndex !== null ? focusIndex : -1;
         this.disconnect();
         this.keyHandle = on(this.node, 'keyup', (e) => {
-            console.log('key', e.key);
             switch (e.key) {
                 case 'Enter': // TODO: disable Enter if in Form
                 case 'Space':
@@ -103,14 +99,12 @@ export default class List extends React.Component {
                     this.select(index);
                     return;
                 case 'ArrowUp':
-                    console.log('UP');
                     index = index - 1;
                     if (index < 0) {
                         index = items.length - 1;
                     }
                     break;
                 case 'ArrowDown':
-                    console.log('DOWN');
                     index = index + 1;
                     if (index > items.length - 1) {
                         index = 0;
@@ -119,7 +113,6 @@ export default class List extends React.Component {
                 default:
                     return;
             }
-            console.log('focus.index', index);
             this.focus(index);
         });
     }
