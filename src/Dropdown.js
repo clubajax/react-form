@@ -1,4 +1,5 @@
 import React from 'react';
+import on from '@clubajax/on';
 import classnames from 'classnames';
 import Popup from './Popup';
 import uid from './lib/uid';
@@ -13,10 +14,21 @@ export default class Dropdown extends React.Component {
             buttonLabel: '',
             labelId: props.label ? uid('label') : null,
             buttonId: uid('button'),
-            open: false
+            open: false,
+            focusIndex: null
         }
         this.onChange = this.onChange.bind(this);
-        this.toggle = this.toggle.bind(this);
+        this.onFocus = this.onFocus.bind(this);
+        this.onBlur = this.onBlur.bind(this);
+        this.onClick = this.onClick.bind(this);
+    }
+
+    componentDidMount () {
+
+    }
+
+    componentWillUnmount () {
+        console.log('UNMOUNT');
     }
 
     getIcon () {
@@ -35,9 +47,60 @@ export default class Dropdown extends React.Component {
         });
     }
 
-    toggle () {
-        const open = !this.state.open;
-        this.setState({ open });
+    onFocus () {
+        console.log('focus..');
+        this.keyHandle = on(document, 'keyup', (e) => {
+            console.log('key', e.key);
+            switch (e.key) {
+                case 'Escape':
+                    this.close();
+                    break;
+                //case 'Enter':
+                case 'ArrowDown':
+                    this.open();
+                    break;
+            }
+        });
+    }
+
+    onBlur () {
+        console.log('blur');
+        if (this.keyHandle) {
+            this.keyHandle.remove();
+        }
+        this.close();
+    }
+
+    onClick (e) {
+        if (!this.state.open) {
+            this.open();
+        }
+    }
+
+    open () {
+        if (this.state.open) {
+            return;
+        }
+        console.log('open...');
+        this.setState({ open: true });
+        setTimeout(()=> {
+            this.clickHandle = on(document, 'click', (e) => {
+                console.log('doc.close', e);
+                this.close();
+            });
+        }, 1);
+
+    }
+
+    close () {
+        if (!this.state.open) {
+            return;
+        }
+        console.log('close...');
+        this.setState({ open: false });
+        if (this.clickHandle) {
+            this.clickHandle.remove();
+        }
     }
 
     render () {
@@ -53,22 +116,34 @@ export default class Dropdown extends React.Component {
         const expanded = open ? 'true' : 'false';
         const btnAria = `${labelId ? labelId : ''}${buttonId}`;
         const popAria = labelId || null;
-        console.log('expanded', expanded);
+        console.log('open', open);
         return (
             <div className={className} role="select">
-                {label && <label id={labelId} htmlFor={buttonId}>{label}</label>}
+                {label && <label id={labelId} htmlFor={buttonId} key="label">{label}</label>}
                 <button
                     id={buttonId}
+                    key="button"
                     aria-haspopup="true"
                     aria-expanded={expanded}
-                    onClick={this.toggle}
                     aria-labelledby={btnAria}
                     aria-activedescendant={id}
+                    onClick={this.onClick}
+                    onFocus={this.onFocus}
+                    onBlur={this.onBlur}
+
                 >
                     <span>{content}</span>
                     {this.getIcon()}
                 </button>
-                <Popup onChange={this.onChange} items={items} selected={selected} aria-labelledby={popAria} open={open}/>
+                <Popup
+                    key="popup"
+                    onChange={this.onChange}
+                    items={items}
+                    selected={selected}
+                    aria-labelledby={popAria}
+                    open={open}
+                    buttonId={buttonId}
+                />
             </div>
         );
     }

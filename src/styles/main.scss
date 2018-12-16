@@ -4,6 +4,8 @@
 }
 .react-dropdown{
     position: relative;
+    margin-bottom: 10px;
+    label{}
     button{
         background-color: transparent;
         border: 1px solid #999;
@@ -13,6 +15,7 @@
         padding: 10px;
         display: flex;
         font-size: 14px;
+        margin-top: 5px;
         &:hover{
             background-color: #eee;
         }
