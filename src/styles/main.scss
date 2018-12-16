@@ -65,19 +65,26 @@
     margin: 0;
     padding: 0;
     border: 1px solid #999;
+
     .react-list-item{
         padding: 10px;
         cursor: pointer;
         border: 1px solid transparent;
+        outline: 0;
         &:hover{
             background-color: #eee;
+        }
+        &:focus{
+            border: 1px solid #666;
+            outline: 0;
         }
         &[aria-selected="true"]{
             background-color: #333;
             color: white;
-        }
-        &.focused{
-            border: 1px solid red;
+            &:focus{
+                border: 1px solid transparent;
+                box-shadow: 0 0 10px white inset;
+            }
         }
     }
 }

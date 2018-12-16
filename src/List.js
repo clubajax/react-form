@@ -1,17 +1,29 @@
 import React from 'react';
 import classnames from 'classnames';
 import on from '@clubajax/on';
+import uid from './lib/uid';
 
 const ARIA_ITEM_PREFIX = 'react-item-';
 
 export default class List extends React.Component {
     constructor (props) {
         super();
+        let selectedIndex = null;
+        let focusIndex = null;
+        let value = null;
+        const active = true;
+        if (props.value && props.items && props.items.length) {
+            console.log('INIT!!');
+            value = props.value;
+            selectedIndex = props.items.findIndex(item => item.value === value);
+            focusIndex = selectedIndex;
+        }
         this.state = {
-            selectedIndex: null,
-            active: true,
-            focusIndex: null,
-            value: props.value || null
+            listId: uid('list'),
+            selectedIndex,
+            active,
+            focusIndex,
+            value
         };
         this.onChange = this.onChange.bind(this);
         this.onFocus = this.onFocus.bind(this);
@@ -55,12 +67,12 @@ export default class List extends React.Component {
     }
 
     focus (index) {
-        console.log('focus', index);
         this.setState({
             focusIndex: index
         }, () => {
             const focused = this.node.querySelector('.react-list-item.focused');
             if (focused) {
+                console.log('FOCUS', focused);
                 focused.focus();
             }
         });
@@ -74,7 +86,7 @@ export default class List extends React.Component {
         const { focusIndex } = this.state;
         let index = focusIndex !== null ? focusIndex : -1;
         this.disconnect();
-        this.keyHandle = on(document, 'keyup', (e) => {
+        this.keyHandle = on(this.node, 'keyup', (e) => {
             console.log('key', e.key);
             switch (e.key) {
                 case 'Enter': // TODO: disable Enter if in Form
@@ -99,7 +111,7 @@ export default class List extends React.Component {
                 default:
                     return;
             }
-            console.log('index', index);
+            console.log('focus.index', index);
             this.focus(index);
         });
     }
@@ -118,12 +130,11 @@ export default class List extends React.Component {
 
     render () {
         const { label, items, onChange, open } = this.props;
-        const { focusIndex, selectedIndex, value } = this.state;
+        const { listId, focusIndex, selectedIndex, value } = this.state;
 
         const selectedItem = items.find(item => item.value === value) || {};
-        const selectedId = selectedItem.value ? `${ARIA_ITEM_PREFIX}${selectedItem.value}` : null;
+        const selectedId = selectedItem.value ? `${ARIA_ITEM_PREFIX}-${listId}-${selectedItem.value}` : null;
         const rootTabIndex = selectedId ? -1 : 0;
-        console.log('selectedId', selectedId, rootTabIndex);
         const classname = classnames({
             'react-list': true
         })

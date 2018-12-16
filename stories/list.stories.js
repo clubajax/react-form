@@ -18,6 +18,7 @@ const items = [
 ]
 storiesOf('List', module)
   .add('Simple List', () => ([
-      <input key="input" />,
-      <List items={items} label="List Items" key="list"/>
+      <section key="1"><input key="input" /></section>,
+      <section key="2"><List items={items} label="List Items" key="list" /></section>,
+      <section key="3"><List items={items} value="b" label="List Items" key="list" /></section>
     ]));
