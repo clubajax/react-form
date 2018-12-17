@@ -1,34 +1,25 @@
 import React from 'react';
-import on from '@clubajax/on';
 import classnames from 'classnames';
 import Popup from './Popup';
+import List from './List';
 import uid from './lib/uid';
-
-const ARIA_ITEM_PREFIX = 'react-item-';
 
 export default class Dropdown extends React.Component {
     constructor (props) {
         super();
         this.state = {
-            selected: '',
+            value: null,
             buttonLabel: '',
             labelId: props.label ? uid('label') : null,
             buttonId: uid('button'),
             open: false,
-            focusIndex: null
+            focusIndex: null,
+            expanded: 'false'
         }
+        this.id = uid('dropdown');
+        this.onClose = this.onClose.bind(this);
+        this.onOpen = this.onOpen.bind(this);
         this.onChange = this.onChange.bind(this);
-        this.onFocus = this.onFocus.bind(this);
-        this.onBlur = this.onBlur.bind(this);
-        this.onClick = this.onClick.bind(this);
-    }
-
-    componentDidMount () {
-
-    }
-
-    componentWillUnmount () {
-
     }
 
     getIcon () {
@@ -38,112 +29,57 @@ export default class Dropdown extends React.Component {
         return <i className="material-icons react-icon">expand_more</i>
     }
 
+    onOpen () {
+        this.setState({ expanded: 'true' });
+    }
+
+    onClose () {
+        this.setState({ expanded: 'false' });
+        // document.getElementById(this.id).focus();
+    }
+
     onChange (value) {
-        const buttonLabel = (this.props.items.find(item => item.value === value) || {}).label || '';
+        console.log('CHANGE', value);
+        const item = this.props.items.find(item => item.value === value);
         this.setState({
-            selected: value,
-            buttonLabel,
-            open: false
+            buttonLabel: item ? item.label : null,
+            value
         });
-    }
-
-    onFocus () {
-        console.log('focus..');
-        this.keyHandle = on(document, 'keyup', (e) => {
-            console.log('key', e.key);
-            switch (e.key) {
-                case 'Escape':
-                    this.close();
-                    break;
-                //case 'Enter':
-                case 'ArrowDown':
-                    this.open();
-                    break;
-            }
-        });
-    }
-
-    onBlur () {
-        console.log('blur');
-        if (this.keyHandle) {
-            this.keyHandle.remove();
-        }
-        this.close();
-    }
-
-    onClick (e) {
-        if (!this.state.open) {
-            this.open();
-        }
-    }
-
-    open () {
-        if (this.state.open) {
-            return;
-        }
-        console.log('open...');
-        this.setState({ open: true });
-        setTimeout(()=> {
-            this.clickHandle = on(document, 'click', (e) => {
-                console.log('doc.close', e);
-                this.close();
-            });
-        }, 1);
-
-    }
-
-    close () {
-        if (!this.state.open) {
-            return;
-        }
-        console.log('close...');
-        this.setState({ open: false });
-        if (this.clickHandle) {
-            this.clickHandle.remove();
+        if (this.props.onChange) {
+            this.props.onChange(value);
         }
     }
 
     render () {
         const { items = [], label, placeholder = 'Select One...' } = this.props;
-        const { buttonLabel, selected, open, labelId, buttonId } = this.state;
+        const { buttonLabel, value, open, labelId, buttonId, expanded } = this.state;
         const content = buttonLabel || placeholder;
+
         const className = classnames({
             'react-dropdown': true,
-            'has-placeholder': !selected
+            'has-placeholder': value === null || value === undefined
         });
 
-        const id = `${ARIA_ITEM_PREFIX}${selected}`;
-        const expanded = open ? 'true' : 'false';
-        const btnAria = `${labelId ? labelId : ''}${buttonId}`;
-        const popAria = labelId || null;
-        console.log('open', open);
         return (
-            <div className={className} role="select">
+            <div className={className}>
                 {label && <label id={labelId} htmlFor={buttonId} key="label">{label}</label>}
-                <button
-                    id={buttonId}
-                    key="button"
-                    aria-haspopup="true"
-                    aria-expanded={expanded}
-                    aria-labelledby={btnAria}
-                    aria-activedescendant={id}
-                    onClick={this.onClick}
-                    onFocus={this.onFocus}
-                    onBlur={this.onBlur}
-
-                >
-                    <span>{content}</span>
-                    {this.getIcon()}
-                </button>
-                <Popup
-                    key="popup"
-                    onChange={this.onChange}
-                    items={items}
-                    selected={selected}
-                    aria-labelledby={popAria}
-                    open={open}
-                    buttonId={buttonId}
-                />
+                <div className="react-popup-container">
+                    <button id={this.id} aria-expanded={expanded}>
+                        <span>{content}</span>
+                        {this.getIcon()}
+                    </button>
+                    <Popup
+                        buttonId={this.id}
+                        onOpen={this.onOpen}
+                        onClose={this.onClose}
+                        isMenu
+                    >
+                        <List
+                            items={items}
+                            onChange={this.onChange}
+                        />
+                    </Popup>
+                </div>
             </div>
         );
     }

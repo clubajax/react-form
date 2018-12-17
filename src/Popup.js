@@ -59,12 +59,16 @@ export default class Popup extends React.Component {
         if (this.state.open) {
             return;
         }
-        this.setState({ open: true });
+        this.setState({ open: true }, () => {
+            this.node.firstElementChild.focus();
+        });
         setTimeout(() => {
             this.keyHandle.resume();
             this.clickHandle.resume();
-            this.node.firstElementChild.focus();
         }, 400);
+        if (this.props.onOpen) {
+            this.props.onOpen();
+        }
     }
 
     close () {
@@ -74,6 +78,9 @@ export default class Popup extends React.Component {
         this.setState({ open: false });
         this.keyHandle.pause();
         this.clickHandle.pause();
+        if (this.props.onClose) {
+            this.props.onClose();
+        }
     }
 
     delayedClose () {
@@ -104,7 +111,6 @@ export default class Popup extends React.Component {
             while (!this.parent.contains(this.node) || !this.parent.contains(btn)) {
                 this.parent = this.parent.parentNode;
             }
-            console.log('prent', this.parent);
         }
     }
 
@@ -121,9 +127,8 @@ export default class Popup extends React.Component {
             'react-popup': true,
             open
         });
-        const expanded = open ? 'true' : 'false';
         return (
-            <div className={classname} aria-expanded={expanded} ref={this.onNode}>
+            <div className={classname} ref={this.onNode}>
                 {children}
             </div>
         );

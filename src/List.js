@@ -5,6 +5,8 @@ import uid from './lib/uid';
 
 const ARIA_ITEM_PREFIX = 'react-item-';
 
+// TODO: search key
+
 export default class List extends React.Component {
     constructor (props) {
         super();
@@ -57,10 +59,12 @@ export default class List extends React.Component {
 
     onChange (e) {
         const value = e.target.getAttribute('value');
-        this.select(this.props.items.findIndex(item => `${item.value}` === value));
+        const index = this.props.items.findIndex(item => `${item.value}` === value);
+        this.select(index);
     }
 
     select (index) {
+        const item = this.props.items[index];
         this.setState({
             selectedIndex: index,
             value: index === -1 ? null : this.props.items[index].value
@@ -68,6 +72,13 @@ export default class List extends React.Component {
             const selected = this.node.querySelector('.react-list-item.focused');
             if (selected) {
                 selected.focus();
+            }
+            console.log('INDEX', index);
+            if (this.props.onChange) {
+                this.props.onChange(item ? item.value : null);
+            }
+            if (item && item.onSelect) {
+                item.onSelect(item || null);
             }
         });
     }
