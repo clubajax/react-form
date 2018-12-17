@@ -15,7 +15,6 @@ export default class List extends React.Component {
         let value = null;
         const active = true;
         if (props.value && props.items && props.items.length) {
-            console.log('INIT!!');
             value = props.value;
             selectedIndex = props.items.findIndex(item => item.value === value);
             focusIndex = selectedIndex;
@@ -58,7 +57,8 @@ export default class List extends React.Component {
     }
 
     onChange (e) {
-        const value = e.target.getAttribute('value');
+        const node = e.target.closest('[role="option"]');
+        const value = node.getAttribute('value');
         const index = this.props.items.findIndex(item => `${item.value}` === value);
         this.select(index);
     }
