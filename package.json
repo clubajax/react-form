@@ -1,9 +1,9 @@
 {
-  "name": "react-popup-list",
+  "name": "@clubajax/react-form",
   "version": "0.1.0",
-  "description": "Dropdown form component for React",
+  "description": "Form components for React",
   "main": "index.js",
-  "repository": "https://github.com/clubajax/react-popup-list.git",
+  "repository": "https://github.com/clubajax/react-form.git",
   "author": "clubajax <anm9tr@gmail.com>",
   "license": "MIT",
   "scripts": {
