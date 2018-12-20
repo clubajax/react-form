@@ -73,7 +73,6 @@ export default class List extends React.Component {
             if (selected) {
                 selected.focus();
             }
-            console.log('INDEX', index);
             if (this.props.onChange) {
                 this.props.onChange(item ? item.value : null);
             }

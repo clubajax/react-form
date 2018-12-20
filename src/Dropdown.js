@@ -4,9 +4,28 @@ import Popup from './Popup';
 import List from './List';
 import uid from './lib/uid';
 
+function getLabel (value, items) {
+    const item = items.find(item => item.value === value);
+    if (!item) {
+        return null;
+    }
+    return item.alias || item.label
+}
 export default class Dropdown extends React.Component {
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.defaultValue === undefined && props.value !== state.value) {
+            return {
+                value: props.value,
+                buttonLabel: getLabel(props.value, props.items)
+            }
+        }
+        return null;
+    }
+
     constructor (props) {
         super();
+        this.uncontrolled = props.defaultValue !== undefined;
         this.state = {
             value: null,
             buttonLabel: '',
@@ -39,12 +58,13 @@ export default class Dropdown extends React.Component {
     }
 
     onChange (value) {
-        console.log('CHANGE', value);
-        const item = this.props.items.find(item => item.value === value);
-        this.setState({
-            buttonLabel: item ? item.label : null,
-            value
-        });
+        if (this.uncontrolled) {
+            console.log('setState');
+            this.setState({
+                buttonLabel: getLabel(value, this.props.items),
+                value
+            });
+        }
         if (this.props.onChange) {
             this.props.onChange(value);
         }
@@ -54,7 +74,6 @@ export default class Dropdown extends React.Component {
         const { items = [], label, placeholder = 'Select One...' } = this.props;
         const { buttonLabel, value, open, labelId, buttonId, expanded } = this.state;
         const content = buttonLabel || placeholder;
-
         const className = classnames({
             'react-dropdown': true,
             'has-placeholder': value === null || value === undefined
