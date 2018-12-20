@@ -4,8 +4,8 @@ import Popup from './Popup';
 import List from './List';
 import uid from './lib/uid';
 
-function getLabel (value, items) {
-    const item = items.find(item => item.value === value);
+function getLabel (value, options) {
+    const item = options.find(item => item.value === value);
     if (!item) {
         return null;
     }
@@ -17,7 +17,7 @@ export default class Dropdown extends React.Component {
         if (props.defaultValue === undefined && props.value !== state.value) {
             return {
                 value: props.value,
-                buttonLabel: getLabel(props.value, props.items)
+                buttonLabel: getLabel(props.value, props.options)
             }
         }
         return null;
@@ -61,7 +61,7 @@ export default class Dropdown extends React.Component {
         if (this.uncontrolled) {
             console.log('setState');
             this.setState({
-                buttonLabel: getLabel(value, this.props.items),
+                buttonLabel: getLabel(value, this.props.options),
                 value
             });
         }
@@ -71,7 +71,7 @@ export default class Dropdown extends React.Component {
     }
 
     render () {
-        const { items = [], label, placeholder = 'Select One...' } = this.props;
+        const { options = [], label, placeholder = 'Select One...' } = this.props;
         const { buttonLabel, value, open, labelId, buttonId, expanded } = this.state;
         const content = buttonLabel || placeholder;
         const className = classnames({
@@ -94,7 +94,7 @@ export default class Dropdown extends React.Component {
                         isMenu
                     >
                         <List
-                            items={items}
+                            options={options}
                             onChange={this.onChange}
                         />
                     </Popup>

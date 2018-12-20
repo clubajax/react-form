@@ -8,15 +8,17 @@ const ARIA_ITEM_PREFIX = 'react-item-';
 // TODO: search key
 
 export default class List extends React.Component {
+
     constructor (props) {
         super();
+        this.uncontrolled = props.defaultValue !== undefined;
         let selectedIndex = null;
         let focusIndex = null;
         let value = null;
         const active = true;
-        if (props.value && props.items && props.items.length) {
+        if (props.value && props.options && props.options.length) {
             value = props.value;
-            selectedIndex = props.items.findIndex(item => item.value === value);
+            selectedIndex = props.options.findIndex(item => item.value === value);
             focusIndex = selectedIndex;
         }
         this.state = {
@@ -26,6 +28,7 @@ export default class List extends React.Component {
             focusIndex,
             value
         };
+        this.onClick = this.onClick.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onFocus = this.onFocus.bind(this);
         this.onBlur = this.onBlur.bind(this);
@@ -39,6 +42,12 @@ export default class List extends React.Component {
     componentWillUnmount () {
         this.disconnect();
     }
+
+    componentDidUpdate(prevProps) {
+        if (!this.uncontrolled && this.props.value !== prevProps.value) {
+            this.afterSelect();
+        }
+      }
 
     onFocus () {
         this.connect();
@@ -56,30 +65,45 @@ export default class List extends React.Component {
         }
     }
 
+    onClick (e) {
+        const node = e.target.closest('[role="option"]');
+        const value = node.getAttribute('value');
+        const index = this.props.options.findIndex(item => `${item.value}` === value);
+        this.focus(index);
+        this.onChange(e);
+    }
+
     onChange (e) {
         const node = e.target.closest('[role="option"]');
         const value = node.getAttribute('value');
-        const index = this.props.items.findIndex(item => `${item.value}` === value);
+        const index = this.props.options.findIndex(item => `${item.value}` === value);
         this.select(index);
     }
 
     select (index) {
-        const item = this.props.items[index];
+        const item = this.props.options[index];
+        if (this.props.onChange) {
+            this.props.onChange(item ? item.value : null);
+        }
+        if (item && item.onSelect) {
+            item.onSelect(item || null);
+        }
+        if (!this.uncontrolled) {
+                return;
+        }
         this.setState({
             selectedIndex: index,
-            value: index === -1 ? null : this.props.items[index].value
+            value: index === -1 ? null : this.props.options[index].value
         }, () => {
-            const selected = this.node.querySelector('.react-list-item.focused');
-            if (selected) {
-                selected.focus();
-            }
-            if (this.props.onChange) {
-                this.props.onChange(item ? item.value : null);
-            }
-            if (item && item.onSelect) {
-                item.onSelect(item || null);
-            }
+            this.afterSelect();
         });
+    }
+
+    afterSelect () {
+        const selected = this.node.querySelector('.react-list-item.focused');
+        if (selected) {
+            selected.focus();
+        }
     }
 
     focus (index) {
@@ -94,14 +118,23 @@ export default class List extends React.Component {
     }
 
     connect () {
-        const { items } = this.props;
-        if (!items || !items.length) {
+        const { options } = this.props;
+        if (!options || !options.length) {
             return;
         }
-        const { focusIndex } = this.state;
-        let index = focusIndex !== null ? focusIndex : -1;
+
         this.disconnect();
         this.keyHandle = on(this.node, 'keyup', (e) => {
+            const { focusIndex } = this.state;
+            let index = focusIndex !== null ? focusIndex : -1;
+            const focused = this.node.querySelector('.react-list-item.focused, [aria-selected="true"]');
+            console.log('index', index);
+            console.log('focused', focused);
+            if (index === -1 && focused) {
+                const v = focused.getAttribute('value');
+                index = this.props.options.findIndex(item => item.value === v);
+            }
+            console.log('index', index);
             switch (e.key) {
                 case 'Enter': // TODO: disable Enter if in Form
                 case 'Space':
@@ -111,12 +144,12 @@ export default class List extends React.Component {
                 case 'ArrowUp':
                     index = index - 1;
                     if (index < 0) {
-                        index = items.length - 1;
+                        index = options.length - 1;
                     }
                     break;
                 case 'ArrowDown':
                     index = index + 1;
-                    if (index > items.length - 1) {
+                    if (index > options.length - 1) {
                         index = 0;
                     }
                     break;
@@ -140,10 +173,12 @@ export default class List extends React.Component {
     }
 
     render () {
-        const { label, items, onChange, open } = this.props;
-        const { listId, focusIndex, selectedIndex, value } = this.state;
+        const { label, options, onChange, open } = this.props;
+        const { listId, focusIndex, selectedIndex } = this.state;
 
-        const selectedItem = items.find(item => item.value === value) || {};
+        const value = this.uncontrolled ? this.state.value : this.props.value;
+
+        const selectedItem = options.find(item => item.value === value) || {};
         const selectedId = selectedItem.value ? `${ARIA_ITEM_PREFIX}-${listId}-${selectedItem.value}` : null;
         const rootTabIndex = selectedId ? -1 : 0;
         const classname = classnames({
@@ -159,8 +194,8 @@ export default class List extends React.Component {
                 onBlur={this.onBlur}
                 ref={this.onNode}
             >
-                {items.map((item, i) => {
-                    const sel = i === selectedIndex ? 'true' : 'false';
+                {options.map((item, i) => {
+                    const sel = value === item.value ? 'true' : 'false';
                     const foc = i === focusIndex ? 'true' : 'false';
                     const id = `${ARIA_ITEM_PREFIX}${item.value}`;
                     const tabIndex = foc === 'true' ? 0 : -1;
@@ -178,7 +213,7 @@ export default class List extends React.Component {
                             key={item.value}
                             value={item.value}
                             tabIndex={tabIndex}
-                            onClick={this.onChange}
+                            onClick={this.onClick}
                         >{item.label}</li>
                     );
                 })}

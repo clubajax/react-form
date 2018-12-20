@@ -15,12 +15,12 @@ class Container extends React.Component {
 
     render () {
         return (
-            <Dropdown items={items} value={this.state.value} onChange={(e) => { this.setState({ value: e })}} placeholder="Choose your kata..." label="Forms" key="drop" />
+            <Dropdown options={options} value={this.state.value} onChange={(e) => { this.setState({ value: e })}} placeholder="Choose your kata..." label="Forms" key="drop" />
         )
     }
 }
 
-const items = [
+const options = [
     {
         value: 'a',
         label: 'H Form 1'
@@ -30,6 +30,27 @@ const items = [
     }, {
         value: 'c',
         label: 'H Form 3'
+    }
+];
+
+const withDisabled = [
+    {
+        value: 'a',
+        label: 'H Form 1'
+    }, {
+        value: 'b',
+        label: 'H Form 2'
+    }, {
+        value: 'c',
+        label: 'H Form 3'
+    }, {
+        value: 'd',
+        label: 'Tekki',
+        disabled: true
+    }, {
+        value: 'e',
+        label: 'Chung mu',
+        disabled: true
     }
 ];
 
@@ -57,11 +78,14 @@ storiesOf('Dropdown', module)
             <option value="c" key="c">CCC</option>
             <option value="d" key="d">DDD</option>
         </select>,
-        <Dropdown items={items} placeholder="Choose your kata..." defaultValue={null} label="Forms" key="drop" />
+        <Dropdown options={options} placeholder="Choose your kata..." defaultValue={null} label="Forms" key="drop" />
     ]))
     .add('Controlled', () => (
         <Container />
     ))
     .add('Alias', () => (
-        <Dropdown items={aliases} placeholder="Choose your number..." defaultValue={null} label="Numbers" key="drop" />
+        <Dropdown options={aliases} placeholder="Choose your number..." defaultValue={null} label="Numbers" key="drop" />
+    ))
+    .add('Disabled Options', () => (
+        <Dropdown options={withDisabled} placeholder="Choose your kata..." defaultValue="b" label="More Forms" key="drop" />
     ));

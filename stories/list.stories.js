@@ -4,7 +4,23 @@ import List from '../src/List';
 
 console.clear();
 
-const items = [
+class Container extends React.Component {
+    // for testing controlled component
+    constructor () {
+        super();
+        this.state = {
+            value: null
+        }
+    }
+
+    render () {
+        return (
+            <List options={options} value={this.state.value} onChange={(e) => { this.setState({ value: e })}} />
+        )
+    }
+}
+
+const options = [
     {
         value: 'a',
         label: 'Tosan'
@@ -28,13 +44,41 @@ const complex = [
         value: 'c',
         label: <div className="complex"><strong>C</strong><em> is for cherry</em></div>
     }
-]
+];
+
+const withDisabled = [
+    {
+        value: 'a',
+        label: 'H Form 1'
+    }, {
+        value: 'b',
+        label: 'H Form 2'
+    }, {
+        value: 'c',
+        label: 'H Form 3'
+    }, {
+        value: 'd',
+        label: 'Tekki',
+        disabled: true
+    }, {
+        value: 'e',
+        label: 'Chung mu',
+        disabled: true
+    }
+];
+
 storiesOf('List', module)
     .add('Simple List', () => ([
         <section key="1"><input key="input" /></section>,
-        <section key="2"><List items={items} label="List Items" key="list" /></section>,
-        <section key="3"><List items={items} value="b" label="List Items" key="list" /></section>
+        <section key="2"><List options={options} label="List options" key="list" /></section>,
+        <section key="3"><List options={options} value="b" label="List options" key="list" /></section>
     ]))
+    .add('Controlled', () => (
+        <section><Container /></section>
+    ))
     .add('Complex DOM', () => (
-        <section><List items={complex} label="List Items" key="list" /></section>
+        <section><List options={complex} label="List options" key="list" /></section>
+    ))
+    .add('Disabled Items', () => (
+        <section key="3"><List options={withDisabled} value="b" label="List options" key="list" /></section>
     ));

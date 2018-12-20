@@ -1,8 +1,8 @@
 {
   "name": "@clubajax/react-form",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Form components for React",
-  "main": "index.js",
+  "main": "src/index.js",
   "repository": "https://github.com/clubajax/react-form.git",
   "author": "clubajax <anm9tr@gmail.com>",
   "license": "MIT",
