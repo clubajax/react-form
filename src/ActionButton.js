@@ -22,7 +22,7 @@ export default class ActionButton extends React.Component {
     }
 
     render () {
-        const { items, label, children } = this.props;
+        const { options, label, children } = this.props;
         const { expanded } = this.state;
         const btnContent = label || children;
         return (
@@ -37,7 +37,8 @@ export default class ActionButton extends React.Component {
                     isMenu
                 >
                     <List
-                        items={items}
+                        options={options}
+                        defaultValue={null}
                         isMenu
                     />
                 </Popup>

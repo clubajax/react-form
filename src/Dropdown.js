@@ -58,12 +58,10 @@ export default class Dropdown extends React.Component {
 
     onClose () {
         this.setState({ expanded: 'false' });
-        // document.getElementById(this.id).focus();
     }
 
     onChange (value) {
         if (this.uncontrolled) {
-            console.log('setState');
             this.setState({
                 buttonLabel: getLabel(value, this.props.options),
                 value
@@ -82,7 +80,6 @@ export default class Dropdown extends React.Component {
             'react-dropdown': true,
             'has-placeholder': value === null || value === undefined
         });
-
         return (
             <div className={className}>
                 {label && <label id={labelId} htmlFor={buttonId} key="label">{label}</label>}
@@ -100,6 +97,7 @@ export default class Dropdown extends React.Component {
                         <List
                             options={options}
                             onChange={this.onChange}
+                            value={value}
                         />
                     </Popup>
                 </div>

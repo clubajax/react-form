@@ -12,18 +12,15 @@ export default class List extends React.Component {
     constructor (props) {
         super();
         this.uncontrolled = props.defaultValue !== undefined;
-        let selectedIndex = null;
         let focusIndex = null;
         let value = null;
         const active = true;
         if (props.value && props.options && props.options.length) {
             value = props.value;
-            selectedIndex = props.options.findIndex(item => item.value === value);
-            focusIndex = selectedIndex;
+            focusIndex = props.options.findIndex(item => item.value === value);
         }
         this.state = {
             listId: uid('list'),
-            selectedIndex,
             active,
             focusIndex,
             value
@@ -62,7 +59,6 @@ export default class List extends React.Component {
         this.disconnect();
         if (this.props.isMenu) {
             this.setState({
-                selectedIndex: null,
                 active: false,
                 focusIndex: null,
                 value: null
@@ -93,21 +89,18 @@ export default class List extends React.Component {
     select (index) {
         const item = this.props.options[index];
         if (this.props.onChange) {
-            console.log('onChange', item.value);
             this.props.onChange(item ? item.value : null);
         }
         if (item && item.onSelect) {
             item.onSelect(item || null);
         }
-        if (!this.uncontrolled) {
-            return;
+        if (this.uncontrolled) {
+            this.setState({
+                value: item ? item.value : null
+            }, () => {
+                this.afterSelect();
+            });
         }
-        this.setState({
-            selectedIndex: index,
-            value: index === -1 ? null : this.props.options[index].value
-        }, () => {
-            this.afterSelect();
-        });
     }
 
     afterSelect () {
@@ -180,8 +173,6 @@ export default class List extends React.Component {
             const { focusIndex } = this.state;
             let index = focusIndex !== null ? focusIndex : -1;
             const focused = this.node.querySelector('.ca-list-item.focused, [aria-selected="true"]');
-            // console.log('index', index);
-            // console.log('focused', focused);
             if (index === -1 && focused) {
                 const v = focused.getAttribute('value');
                 index = this.props.options.findIndex(item => item.value === v);
@@ -218,7 +209,7 @@ export default class List extends React.Component {
     }
 
     render () {
-        const { options } = this.props;
+        const { options = [] } = this.props;
         const { listId, focusIndex } = this.state;
 
         const value = this.uncontrolled ? this.state.value : this.props.value;
@@ -229,7 +220,6 @@ export default class List extends React.Component {
         const classname = classnames({
             'ca-list': true
         });
-
         return (
             <ul
                 aria-activedescendant={selectedId}

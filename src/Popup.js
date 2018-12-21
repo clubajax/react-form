@@ -54,6 +54,13 @@ export default class Popup extends React.Component {
         });
     }
 
+    componentWillUnmount () {
+        this.keyHandle.remove();
+        this.clickHandle.remove();
+        this.clickMainHandle.remove();
+        this.keyMainHandle.remove();
+    }
+
     open () {
         if (this.state.open) {
             return;

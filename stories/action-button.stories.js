@@ -18,5 +18,5 @@ const items = [
 ]
 storiesOf('ActionButton', module)
   .add('Simple', () => (
-      <section key="2"><ActionButton items={items} key="list">Super Button</ActionButton></section>
+      <section key="2"><ActionButton options={items} key="list">Super Button</ActionButton></section>
     ));
