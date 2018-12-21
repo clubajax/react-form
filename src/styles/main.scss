@@ -20,7 +20,7 @@
 .react-dropdown{
     position: relative;
     margin-bottom: 10px;
-    label{}
+    // label{}
     button{
         background-color: transparent;
         border: 1px solid #999;
@@ -78,13 +78,13 @@
     }
 }
 
-.react-list{
+.ca-list{
     list-style: none;
     margin: 0;
     padding: 0;
     border: 1px solid #999;
 
-    .react-list-item{
+    .ca-list-item{
         padding: 10px;
         cursor: pointer;
         border: 1px solid transparent;
@@ -103,6 +103,13 @@
                 border: 1px solid transparent;
                 box-shadow: 0 0 10px white inset;
             }
+        }
+        &[disabled] {
+            background-color: #ccc;
+            color: #666;
+            font-style: italic;
+            cursor: not-allowed;
+            pointer-events: none;
         }
     }
 }

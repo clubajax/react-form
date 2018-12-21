@@ -34,6 +34,10 @@ export default class Dropdown extends React.Component {
             open: false,
             focusIndex: null,
             expanded: 'false'
+        };
+
+        if (!this.uncontrolled && !props.onChange) {
+            console.error('A controlled List will need an `onChange` event')
         }
         this.id = uid('dropdown');
         this.onClose = this.onClose.bind(this);

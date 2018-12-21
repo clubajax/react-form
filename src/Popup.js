@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import on from '@clubajax/on';
 import List from './List';
 
-const ARIA_ITEM_PREFIX = 'react-item-';
+const ARIA_ITEM_PREFIX = 'ca-item-';
 
 export default class Popup extends React.Component {
     constructor () {
@@ -16,7 +16,6 @@ export default class Popup extends React.Component {
 
     componentDidMount () {
         const { buttonId } = this.props;
-        console.log('buttonId', buttonId);
         if (!buttonId) {
             return;
         }

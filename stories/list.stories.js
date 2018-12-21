@@ -67,18 +67,21 @@ const withDisabled = [
     }
 ];
 
+function onChange (e) {
+    console.log('story.change', e);
+}
 storiesOf('List', module)
     .add('Simple List', () => ([
         <section key="1"><input key="input" /></section>,
-        <section key="2"><List options={options} label="List options" key="list" /></section>,
-        <section key="3"><List options={options} value="b" label="List options" key="list" /></section>
+        <section key="2"><List options={options} label="List options" defaultValue={null} key="list" /></section>,
+        <section key="3"><List options={options} defaultValue="b" label="List options" key="list" /></section>
     ]))
     .add('Controlled', () => (
         <section><Container /></section>
     ))
     .add('Complex DOM', () => (
-        <section><List options={complex} label="List options" key="list" /></section>
+        <section><List options={complex} label="List options" defaultValue={null} key="list" /></section>
     ))
     .add('Disabled Items', () => (
-        <section key="3"><List options={withDisabled} value="b" label="List options" key="list" /></section>
+        <section key="3"><List options={withDisabled} defaultValue="b" label="List options" onChange={onChange} /></section>
     ));
