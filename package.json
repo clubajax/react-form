@@ -2,14 +2,32 @@
   "name": "@clubajax/react-form",
   "version": "0.1.2",
   "description": "Form components for React",
-  "main": "src/index.js",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "files": [
+    "css",
+    "es",
+    "lib",
+    "umd"
+  ],
   "repository": "https://github.com/clubajax/react-form.git",
   "author": "clubajax <anm9tr@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "story": "start-storybook -p 9001 -c .storybook"
+    "story": "start-storybook -p 9001 -c .storybook",
+    "build": "nwb build-react-component",
+    "clean": "nwb clean-module && nwb clean-demo",
+    "prepublishOnly": "npm run build",
+    "start": "nwb serve-react-demo",
+    "test": "nwb test-react",
+    "test:coverage": "nwb test-react --coverage",
+    "test:watch": "nwb test-react --server"
+  },
+  "peerDependencies": {
+    "react": "16.x"
   },
   "devDependencies": {
+    "nwb": "0.23.x",
     "@babel/core": "^7.2.0",
     "@storybook/addon-info": "^4.1.1",
     "@storybook/react": "^4.1.1",
@@ -19,13 +37,12 @@
     "node-sass": "^4.11.0",
     "react-docgen-typescript-webpack-plugin": "^1.1.0",
     "sass-loader": "^7.1.0",
-    "typescript": "^3.2.2"
-  },
-  "dependencies": {
-    "@clubajax/key-nav": "^1.1.2",
-    "@clubajax/on": "^2.1.8",
-    "classnames": "^2.2.6",
+    "typescript": "^3.2.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3"
+  },
+  "dependencies": {
+    "@clubajax/on": "^2.1.8",
+    "classnames": "^2.2.6"
   }
 }
