@@ -11,7 +11,7 @@
             "dom"
         ],
         "sourceMap": true,
-        "allowJs": false,
+        "allowJs": true,
         "jsx": "react",
         "moduleResolution": "node",
         "rootDirs": [
@@ -20,10 +20,10 @@
         ],
         "baseUrl": "src",
         "forceConsistentCasingInFileNames": true,
-        "noImplicitReturns": true,
-        "noImplicitThis": true,
-        "noImplicitAny": true,
-        "strictNullChecks": true,
+        // "noImplicitReturns": true,
+        // "noImplicitThis": true,
+        // "noImplicitAny": false,
+        // "strictNullChecks": false,
         "suppressImplicitAnyIndexErrors": true,
         "noUnusedLocals": true,
         "declaration": true,
