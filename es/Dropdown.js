@@ -10,7 +10,9 @@ import Popup from './Popup';
 import List from './List';
 import uid from './lib/uid';
 
-function getLabel(value, options) {
+function getLabel(value) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
     var item = options.find(function (item) {
         return item.value === value;
     });

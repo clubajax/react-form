@@ -4,7 +4,7 @@ import Popup from './Popup';
 import List from './List';
 import uid from './lib/uid';
 
-function getLabel (value, options) {
+function getLabel (value, options = []) {
     const item = options.find(item => item.value === value);
     if (!item) {
         return null;
