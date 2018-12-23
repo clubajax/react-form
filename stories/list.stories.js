@@ -33,6 +33,22 @@ const options = [
     }
 ];
 
+const withClass = [
+    {
+        value: 'a',
+        label: 'Tosan',
+        class: 'orange'
+    }, {
+        value: 'b',
+        label: 'Heyan 4',
+        class: 'green'
+    }, {
+        value: 'c',
+        label: 'Waurang',
+        class: 'blue'
+    }
+];
+
 const complex = [
     {
         value: 'a',
@@ -105,6 +121,9 @@ storiesOf('List', module)
         <section key="2"><List options={options} label="List options" defaultValue={null} key="list" /></section>,
         <section key="3"><List options={options} defaultValue="b" label="List options" key="list" /></section>
     ]))
+    .add('With Class', () => (
+        <section key="3"><List options={withClass} defaultValue="b" label="List options" key="list" /></section>
+    ))
     .add('Controlled', () => (
         <section><Container /></section>
     ))

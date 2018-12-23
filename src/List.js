@@ -235,11 +235,14 @@ export default class List extends React.Component {
                     const foc = i === focusIndex ? 'true' : 'false';
                     const id = `${ARIA_ITEM_PREFIX}${item.value}`;
                     const tabIndex = foc === 'true' ? 0 : -1;
-                    const cls = classnames({
+                    let cls = classnames({
                         'ca-list-item': true,
                         label: item.type === 'label',
                         'focused': foc === 'true' // not actually styled used for querying
                     });
+                    if (item.class) {
+                        cls = `${cls} ${item.class}`;
+                    }
                     if (item.type === 'label') {
                         return (
                             <li
