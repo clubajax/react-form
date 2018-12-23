@@ -1,0 +1,92 @@
+.ca-button {
+  border: 1px solid #666;
+  background-color: #999;
+  color: white;
+  padding: 10px;
+  font-size: 14px;
+  outline: 0;
+  cursor: pointer; }
+  .ca-button:hover {
+    background-color: #aaa; }
+  .ca-button:focus {
+    box-shadow: 0 0 10px white inset; }
+
+.react-dropdown,
+.react-popup {
+  box-sizing: border-box; }
+
+.react-dropdown {
+  position: relative;
+  margin-bottom: 10px; }
+  .react-dropdown button {
+    background-color: transparent;
+    border: 1px solid #999;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    font-size: 14px;
+    margin-top: 5px; }
+    .react-dropdown button:hover {
+      background-color: #eee; }
+    .react-dropdown button span {
+      flex: 1 1 auto;
+      align-self: center; }
+    .react-dropdown button .react-icon {
+      flex: 0 0 20px; }
+  .react-dropdown.has-placeholder button {
+    color: #aaa; }
+
+.react-popup-container {
+  position: relative; }
+
+.react-popup {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #999;
+  display: none; }
+  .react-popup li {
+    padding: 10px;
+    cursor: pointer; }
+    .react-popup li:hover {
+      background-color: #eee; }
+    .react-popup li[aria-selected="true"] {
+      background-color: #333;
+      color: white; }
+  .react-popup.open {
+    display: block; }
+
+.ca-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #999; }
+  .ca-list .ca-list-item {
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    outline: 0; }
+    .ca-list .ca-list-item:hover {
+      background-color: #eee; }
+    .ca-list .ca-list-item:focus {
+      border: 1px solid #666;
+      outline: 0; }
+    .ca-list .ca-list-item[aria-selected="true"] {
+      background-color: #333;
+      color: white; }
+      .ca-list .ca-list-item[aria-selected="true"]:focus {
+        border: 1px solid transparent;
+        box-shadow: 0 0 10px white inset; }
+    .ca-list .ca-list-item[disabled] {
+      background-color: #ccc;
+      color: #666;
+      font-style: italic;
+      cursor: not-allowed;
+      pointer-events: none; }
+
