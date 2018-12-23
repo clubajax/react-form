@@ -12,25 +12,25 @@
   "license": "MIT",
   "scripts": {
     "story": "start-storybook -p 9001 -c .storybook",
-    "build": "nwb build-react-component",
-    "clean": "nwb clean-module && nwb clean-demo",
-    "prepublishOnly": "npm run build",
-    "start": "nwb serve-react-demo",
-    "test": "nwb test-react",
-    "test:coverage": "nwb test-react --coverage",
-    "test:watch": "nwb test-react --server"
+    "build": "webpack --config ./webpack.config.js --mode production"
   },
   "peerDependencies": {
     "react": ">=16.3.2-0 <17.0.0",
     "react-dom": ">=16.3.2-0 <17.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.0",
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.2.3",
+    "@babel/plugin-transform-classes": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/preset-react": "^7.0.0",
     "@storybook/addon-info": "^4.1.1",
     "@storybook/react": "^4.1.1",
     "@types/storybook__react": "^4.0.0",
     "awesome-typescript-loader": "^5.2.1",
-    "babel-loader": "^8.0.4",
+    "babel-loader": "^8.0.0-beta",
+    "css-loader": "^2.0.2",
+    "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.11.0",
     "nwb": "0.23.x",
     "nwb-sass": "^0.9.0",
@@ -38,7 +38,10 @@
     "react-docgen-typescript-webpack-plugin": "^1.1.0",
     "react-dom": "^16.6.3",
     "sass-loader": "^7.1.0",
-    "typescript": "^3.2.2"
+    "typescript": "^3.2.2",
+    "webpack": "^4.28.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
     "@clubajax/on": "^2.1.8",
