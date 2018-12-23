@@ -73,18 +73,19 @@ export default class Dropdown extends React.Component {
     }
 
     render () {
-        const { options = [], label, placeholder = 'Select One...' } = this.props;
+        const { options = [], label, placeholder = 'Select One...', disabled } = this.props;
         const { buttonLabel, value, open, labelId, buttonId, expanded } = this.state;
         const content = buttonLabel || placeholder;
         const className = classnames({
             'react-dropdown': true,
-            'has-placeholder': value === null || value === undefined
+            'has-placeholder': value === null || value === undefined,
+            disabled
         });
         return (
             <div className={className}>
                 {label && <label id={labelId} htmlFor={buttonId} key="label">{label}</label>}
                 <div className="react-popup-container">
-                    <button id={this.id} aria-expanded={expanded}>
+                    <button id={this.id} aria-expanded={expanded} disabled>
                         <span>{content}</span>
                         {this.getIcon()}
                     </button>

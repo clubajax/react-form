@@ -19,11 +19,18 @@ export default class Popup extends React.Component {
         if (!buttonId) {
             return;
         }
+        const button = document.getElementById(buttonId);
 
         this.keyHandle = on(document, 'keyup', (e) => {
             switch (e.key) {
                 case 'Escape':
                     this.close();
+                    break;
+                case 'Tab':
+                    const focused = document.activeElement;
+                    if (!button.contains(focused) && !this.node.contains(focused)) {
+                        this.close();
+                    }
                     break;
                 default:
                     this.detectBlur(e);

@@ -6,6 +6,7 @@
     font-size: 14px;
     outline: 0;
     cursor: pointer;
+    font-family: inherit;
     &:hover{
         background-color: #aaa;
     }
@@ -31,6 +32,7 @@
         display: flex;
         font-size: 14px;
         margin-top: 5px;
+        font-family: inherit;
         &:hover{
             background-color: #eee;
         }
@@ -40,6 +42,15 @@
         }
         .react-icon{
             flex: 0 0 20px;
+        }
+    }
+    &.disabled{
+        button{
+            background-color: #ddd;
+            color: #444;
+            font-style: italic;
+            cursor: not-allowed;
+            pointer-events: none;
         }
     }
     &.has-placeholder{
@@ -62,9 +73,12 @@
     padding: 0;
     border: 1px solid #999;
     display: none;
+    outline: none;
+    background-color: white;
     li{
         padding: 10px;
         cursor: pointer;
+        font-family: inherit;
         &:hover{
             background-color: #eee;
         }
@@ -83,7 +97,7 @@
     margin: 0;
     padding: 0;
     border: 1px solid #999;
-
+    outline: none;
     .ca-list-item{
         padding: 10px;
         cursor: pointer;
@@ -110,6 +124,9 @@
             font-style: italic;
             cursor: not-allowed;
             pointer-events: none;
+        }
+        &.label{
+            background-color: #f5f5f5;
         }
     }
 }

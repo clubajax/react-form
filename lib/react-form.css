@@ -5,7 +5,8 @@
   padding: 10px;
   font-size: 14px;
   outline: 0;
-  cursor: pointer; }
+  cursor: pointer;
+  font-family: inherit; }
   .ca-button:hover {
     background-color: #aaa; }
   .ca-button:focus {
@@ -27,7 +28,8 @@
     padding: 10px;
     display: flex;
     font-size: 14px;
-    margin-top: 5px; }
+    margin-top: 5px;
+    font-family: inherit; }
     .react-dropdown button:hover {
       background-color: #eee; }
     .react-dropdown button span {
@@ -35,6 +37,12 @@
       align-self: center; }
     .react-dropdown button .react-icon {
       flex: 0 0 20px; }
+  .react-dropdown.disabled button {
+    background-color: #ddd;
+    color: #444;
+    font-style: italic;
+    cursor: not-allowed;
+    pointer-events: none; }
   .react-dropdown.has-placeholder button {
     color: #aaa; }
 
@@ -50,10 +58,13 @@
   margin: 0;
   padding: 0;
   border: 1px solid #999;
-  display: none; }
+  display: none;
+  outline: none;
+  background-color: white; }
   .react-popup li {
     padding: 10px;
-    cursor: pointer; }
+    cursor: pointer;
+    font-family: inherit; }
     .react-popup li:hover {
       background-color: #eee; }
     .react-popup li[aria-selected="true"] {
@@ -66,7 +77,8 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  border: 1px solid #999; }
+  border: 1px solid #999;
+  outline: none; }
   .ca-list .ca-list-item {
     padding: 10px;
     cursor: pointer;
@@ -89,4 +101,6 @@
       font-style: italic;
       cursor: not-allowed;
       pointer-events: none; }
+    .ca-list .ca-list-item.label {
+      background-color: #f5f5f5; }
 

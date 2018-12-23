@@ -140,7 +140,7 @@ export default class List extends React.Component {
             return nodes[index];
         };
         const nodeIsNavAble = (node) => {
-            return !node.hasAttribute('disabled');
+            return !node.hasAttribute('disabled') && !node.classList.contains('label');
         };
 
         const getPrevNodeIndex = (index) => {
@@ -237,8 +237,19 @@ export default class List extends React.Component {
                     const tabIndex = foc === 'true' ? 0 : -1;
                     const cls = classnames({
                         'ca-list-item': true,
+                        label: item.type === 'label',
                         'focused': foc === 'true' // not actually styled used for querying
-                    })
+                    });
+                    if (item.type === 'label') {
+                        return (
+                            <li
+                                role="presentation"
+                                aria-label={item.label}
+                                className={cls}
+                                key={item.label}
+                            >{item.label}</li>
+                        );
+                    }
                     return (
                         <li
                             role="option"

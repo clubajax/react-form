@@ -78,13 +78,17 @@ storiesOf('Dropdown', module)
             <option value="c" key="c">CCC</option>
             <option value="d" key="d">DDD</option>
         </select>,
-        <Dropdown options={options} placeholder="Choose your kata..." defaultValue={null} label="Forms" key="drop" />
+        <Dropdown options={options} placeholder="Choose your kata..." defaultValue={null} label="Forms" key="drop" />,
+        <input key="input"/>
     ]))
     .add('Controlled', () => (
         <Container />
     ))
     .add('Alias', () => (
         <Dropdown options={aliases} placeholder="Choose your number..." defaultValue={null} label="Numbers" key="drop" />
+    ))
+    .add('Disabled', () => (
+        <Dropdown disabled options={withDisabled} placeholder="Choose your kata..." defaultValue="b" label="More Forms" key="drop" />
     ))
     .add('Disabled Options', () => (
         <Dropdown options={withDisabled} placeholder="Choose your kata..." defaultValue="b" label="More Forms" key="drop" />
