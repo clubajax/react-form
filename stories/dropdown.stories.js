@@ -33,6 +33,22 @@ const options = [
     }
 ];
 
+const withClass = [
+    {
+        value: 'a',
+        label: 'Tosan',
+        class: 'orange'
+    }, {
+        value: 'b',
+        label: 'Heyan 4',
+        class: 'green'
+    }, {
+        value: 'c',
+        label: 'Waurang',
+        class: 'blue'
+    }
+];
+
 const withDisabled = [
     {
         value: 'a',
@@ -86,6 +102,9 @@ storiesOf('Dropdown', module)
     ))
     .add('Alias', () => (
         <Dropdown options={aliases} placeholder="Choose your number..." defaultValue={null} label="Numbers" key="drop" />
+    ))
+    .add('With Class', () => (
+        <Dropdown options={withClass} placeholder="Choose your belt..." defaultValue={null} label="Katas" key="drop" />
     ))
     .add('Disabled', () => (
         <Dropdown disabled options={withDisabled} placeholder="Choose your kata..." defaultValue="b" label="More Forms" key="drop" />
