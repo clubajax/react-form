@@ -85,7 +85,7 @@ export default class Dropdown extends React.Component {
             <div className={className}>
                 {label && <label id={labelId} htmlFor={buttonId} key="label">{label}</label>}
                 <div className="react-popup-container">
-                    <button id={this.id} aria-expanded={expanded} disabled>
+                    <button id={this.id} aria-expanded={expanded} disabled={disabled}>
                         <span>{content}</span>
                         {this.getIcon()}
                     </button>
