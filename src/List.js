@@ -60,7 +60,7 @@ export default class List extends React.Component {
         if (this.props.isMenu) {
             this.setState({
                 active: false,
-                focusIndex: null,
+                focusValue: null,
                 value: null
             })
         }
@@ -69,25 +69,24 @@ export default class List extends React.Component {
     onClick (e) {
         const node = e.target.closest('[role="option"]');
         if (node.hasAttribute('disabled')) {
-            console.log('DISABLED');
             e.preventDefault();
             return false;
         }
-        const value = node.getAttribute('value');
-        const index = this.props.options.findIndex(item => `${item.value}` === value);
-        this.focus(index);
+        // const value = node.getAttribute('value');
+        // const index = this.props.options.findIndex(item => `${item.value}` === value);
+        this.focus(node);
         this.onChange(e);
     }
 
     onChange (e) {
         const node = e.target.closest('[role="option"]');
         const value = node.getAttribute('value');
-        const index = this.props.options.findIndex(item => `${item.value}` === value);
-        this.select(index);
+        // const index = this.props.options.findIndex(item => `${item.value}` === value);
+        this.select(value);
     }
 
-    select (index) {
-        const item = this.props.options[index];
+    select (value) {
+        const item = this.props.options.find(item => item.value === value);
         if (this.props.onChange) {
             this.props.onChange(item ? item.value : null);
         }
@@ -110,9 +109,9 @@ export default class List extends React.Component {
         }
     }
 
-    focus (index) {
+    focus (node) {
         this.setState({
-            focusIndex: index
+            focusValue: node ? node.getAttribute('value') : null
         }, () => {
             const focused = this.node.querySelector('.ca-list-item.focused');
             if (focused) {
@@ -139,11 +138,12 @@ export default class List extends React.Component {
             }
             return nodes[index];
         };
+
         const nodeIsNavAble = (node) => {
-            return !node.hasAttribute('disabled') && !node.classList.contains('label');
+            return !node.hasAttribute('disabled') && !node.classList.contains('label') && !node.classList.contains('group');
         };
 
-        const getPrevNodeIndex = (index) => {
+        const getPrevNode = (index) => {
             index = index - 1;
             let node = getNode(index);
             while (!node) {
@@ -153,10 +153,10 @@ export default class List extends React.Component {
                 }
                 node = getNode(index);
             }
-            return index;
+            return node;
         };
 
-        const getNextNodeIndex = (index) => {
+        const getNextNode = (index) => {
             index = index + 1;
             let node = getNode(index);
             while (!node) {
@@ -166,12 +166,13 @@ export default class List extends React.Component {
                 }
                 node = getNode(index);
             }
-            return index;
+            return node;
         };
 
         this.keyHandle = on(this.node, 'keyup', (e) => {
-            const { focusIndex } = this.state;
-            let index = focusIndex !== null ? focusIndex : -1;
+            const { focusValue } = this.state;
+            let node;
+            let index = focusValue === null ?  -1 : this.props.options.findIndex(item => item.value === focusValue);
             const focused = this.node.querySelector('.ca-list-item.focused, [aria-selected="true"]');
             if (index === -1 && focused) {
                 const v = focused.getAttribute('value');
@@ -181,18 +182,18 @@ export default class List extends React.Component {
                 case 'Enter': // TODO: disable Enter if in Form
                 case 'Space':
                 case ' ':
-                    this.select(index);
+                    this.select(focusValue);
                     return;
                 case 'ArrowUp':
-                    index = getPrevNodeIndex(index);
+                    node = getPrevNode(index);
                     break;
                 case 'ArrowDown':
-                    index = getNextNodeIndex(index);
+                    node = getNextNode(index);
                     break;
                 default:
                     return;
             }
-            this.focus(index);
+            this.focus(node);
         });
     }
 
@@ -210,7 +211,7 @@ export default class List extends React.Component {
 
     render () {
         const { options = [] } = this.props;
-        const { listId, focusIndex } = this.state;
+        const { listId, focusValue } = this.state;
 
         const value = this.uncontrolled ? this.state.value : this.props.value;
 
@@ -232,18 +233,19 @@ export default class List extends React.Component {
             >
                 {options.map((item, i) => {
                     const sel = value === item.value ? 'true' : 'false';
-                    const foc = i === focusIndex ? 'true' : 'false';
+                    const foc = item.value === focusValue ? 'true' : 'false';
                     const id = `${ARIA_ITEM_PREFIX}${item.value}`;
                     const tabIndex = foc === 'true' ? 0 : -1;
                     let cls = classnames({
                         'ca-list-item': true,
                         label: item.type === 'label',
+                        group: item.type === 'group',
                         'focused': foc === 'true' // not actually styled used for querying
                     });
                     if (item.class) {
                         cls = `${cls} ${item.class}`;
                     }
-                    if (item.type === 'label') {
+                    if (item.type === 'label' || item.type === 'group') {
                         return (
                             <li
                                 role="presentation"

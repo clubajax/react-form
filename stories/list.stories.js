@@ -112,6 +112,44 @@ const labeled = [
     }
 ];
 
+const groups = [
+    {
+        type: 'group',
+        label: 'Under belts'
+    },
+    {
+        value: 'a',
+        label: 'H Form 1'
+    }, {
+        value: 'b',
+        label: 'H Form 2'
+    }, {
+        value: 'c',
+        label: 'H Form 3'
+    }, {
+        value: 'd',
+        label: 'Tekki'
+    }, {
+        type: 'group',
+        label: 'Brown belts'
+    }, {
+        value: 'e',
+        label: 'Chung mu'
+    }, {
+        value: 'f',
+        label: 'Swishi no cone'
+    }, {
+        type: 'group',
+        label: 'Black belts'
+    }, {
+        value: 'g',
+        label: 'Kama Kata'
+    }, {
+        value: 'h',
+        label: 'Tonfa Kata'
+    }
+];
+
 function onChange (e) {
     console.log('story.change', e);
 }
@@ -135,4 +173,7 @@ storiesOf('List', module)
     ))
     .add('Labels', () => (
         <section><List options={labeled} label="List options" defaultValue={null} key="list" /></section>
+    ))
+    .add('Groups', () => (
+        <section><List options={groups} label="Grouped options" defaultValue={null} key="list" /></section>
     ));
