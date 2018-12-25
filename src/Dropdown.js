@@ -69,6 +69,15 @@ export default class Dropdown extends React.Component {
             });
         }
         if (this.props.onChange) {
+            if (this.props.name) {
+                const keyValue = {
+                    [this.props.name]: value,
+                    name: this.props.name,
+                    value,
+                 };
+                this.props.onChange(keyValue);
+                return;
+            }
             this.props.onChange(value);
         }
     }

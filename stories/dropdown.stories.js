@@ -96,6 +96,11 @@ const aliases = [
         label: <div className="styled-item"><div>Tre</div><div>This is the third item in the list</div><div>To be used only under the most dire circumstances</div></div>
     }
 ];
+
+function onChange (e) {
+    console.log('onChange', e);
+}
+
 storiesOf('Dropdown', module)
     .add('Uncontrolled', () => ([
         <label htmlFor="sel" key="label">Alphabet</label>,
@@ -119,6 +124,9 @@ storiesOf('Dropdown', module)
         <form>
             <Dropdown options={options} placeholder="Choose your kata..." defaultValue={null} label="Forms" key="drop" />
         </form>
+    ))
+    .add('KeyValue', () => (
+        <Dropdown options={options} placeholder="Choose your kata..." defaultValue={null} name="shazbut" label="Forms" key="drop" onChange={onChange} />
     ))
     .add('Controlled', () => (
         <Container options={options} />
