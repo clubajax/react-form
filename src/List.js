@@ -49,7 +49,7 @@ export default class List extends React.Component {
         if (!this.uncontrolled && this.props.value !== prevProps.value) {
             this.afterSelect();
         }
-      }
+    }
 
     onFocus () {
         this.connect();
@@ -221,6 +221,7 @@ export default class List extends React.Component {
         const classname = classnames({
             'ca-list': true
         });
+
         return (
             <ul
                 aria-activedescendant={selectedId}
@@ -232,6 +233,7 @@ export default class List extends React.Component {
                 ref={this.onNode}
             >
                 {options.map((item, i) => {
+                    const propLabel = typeof item.label === 'object' ? item.alias : item.label;
                     const sel = value === item.value ? 'true' : 'false';
                     const foc = item.value === focusValue ? 'true' : 'false';
                     const id = `${ARIA_ITEM_PREFIX}${item.value}`;
@@ -249,9 +251,9 @@ export default class List extends React.Component {
                         return (
                             <li
                                 role="presentation"
-                                aria-label={item.label}
+                                aria-label={propLabel}
                                 className={cls}
-                                key={item.label}
+                                key={propLabel}
                             >{item.label}</li>
                         );
                     }
@@ -259,10 +261,10 @@ export default class List extends React.Component {
                         <li
                             role="option"
                             aria-selected={sel}
-                            aria-label={item.label}
+                            aria-label={propLabel}
                             id={id}
                             className={cls}
-                            key={item.value}
+                            key={propLabel}
                             value={item.value}
                             tabIndex={tabIndex}
                             onClick={this.onClick}

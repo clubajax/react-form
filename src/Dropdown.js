@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import Popup from './Popup';
 import List from './List';
 import uid from './lib/uid';
+import equal from './lib/equal';
 
 function getLabel (value, options = []) {
     const item = options.find(item => item.value === value);
@@ -14,7 +15,7 @@ function getLabel (value, options = []) {
 export default class Dropdown extends React.Component {
 
     static getDerivedStateFromProps(props, state) {
-        if (props.defaultValue === undefined && props.value !== state.value) {
+        if (props.defaultValue === undefined && (props.value !== state.value || !equal(props.options, state.options))) {
             return {
                 value: props.value,
                 buttonLabel: getLabel(props.value, props.options)
@@ -81,6 +82,7 @@ export default class Dropdown extends React.Component {
             'has-placeholder': value === null || value === undefined,
             disabled
         });
+        console.log('drop', value, buttonLabel, options);
         return (
             <div className={className}>
                 {label && <label id={labelId} htmlFor={buttonId} key="label">{label}</label>}

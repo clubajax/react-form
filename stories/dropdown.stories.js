@@ -6,16 +6,27 @@ console.clear();
 
 class Container extends React.Component {
     // for testing controlled component
-    constructor () {
+    constructor (props) {
         super();
         this.state = {
-            value: null
+            value: props.value || null,
+            options: props.delay ? [] : props.options || []
+        };
+    }
+
+    componentDidMount () {
+        const { delay, options } = this.props;
+        if (delay) {
+            setTimeout(() => {
+                this.setState({ options });
+            }, 100);
         }
     }
 
     render () {
+        const { options, value } = this.state;
         return (
-            <Dropdown options={options} value={this.state.value} onChange={(e) => { this.setState({ value: e })}} placeholder="Choose your kata..." label="Forms" key="drop" />
+            <Dropdown options={options} value={value} onChange={(e) => { this.setState({ value: e })}} placeholder="Choose your kata..." label="Forms" key="drop" />
         )
     }
 }
@@ -98,7 +109,10 @@ storiesOf('Dropdown', module)
         <input key="input"/>
     ]))
     .add('Controlled', () => (
-        <Container />
+        <Container options={options} />
+    ))
+    .add('Controlled Delayed Load', () => (
+        <Container options={options} delay value="b"/>
     ))
     .add('Alias', () => (
         <Dropdown options={aliases} placeholder="Choose your number..." defaultValue={null} label="Numbers" key="drop" />
