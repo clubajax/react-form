@@ -59,7 +59,7 @@ export default class Popup extends React.Component {
                 this.open();
             }
             e.preventDefault();
-            e.stopBubbling();
+            e.stopPropagation();
             return false;
         });
     }
