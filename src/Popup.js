@@ -51,13 +51,16 @@ export default class Popup extends React.Component {
                     break;
             }
         });
-        this.clickMainHandle = on(buttonId, 'click', () => {
+        this.clickMainHandle = on(buttonId, 'click', (e) => {
             const { open } = this.state;
             if (open) {
                 this.close();
             } else {
                 this.open();
             }
+            e.preventDefault();
+            e.stopBubbling();
+            return false;
         });
     }
 

@@ -108,6 +108,11 @@ storiesOf('Dropdown', module)
         <Dropdown options={options} placeholder="Choose your kata..." defaultValue={null} label="Forms" key="drop" />,
         <input key="input"/>
     ]))
+    .add('Form', () => (
+        <form>
+            <Dropdown options={options} placeholder="Choose your kata..." defaultValue={null} label="Forms" key="drop" />
+        </form>
+    ))
     .add('Controlled', () => (
         <Container options={options} />
     ))

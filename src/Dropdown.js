@@ -82,12 +82,11 @@ export default class Dropdown extends React.Component {
             'has-placeholder': value === null || value === undefined,
             disabled
         });
-        console.log('drop', value, buttonLabel, options);
         return (
             <div className={className}>
                 {label && <label id={labelId} htmlFor={buttonId} key="label">{label}</label>}
                 <div className="react-popup-container">
-                    <button id={this.id} aria-expanded={expanded} disabled={disabled}>
+                    <button id={this.id} aria-expanded={expanded} disabled={disabled} type="button">
                         <span>{content}</span>
                         {this.getIcon()}
                     </button>
