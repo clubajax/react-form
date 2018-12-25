@@ -84,7 +84,7 @@
     cursor: pointer;
     border: 1px solid transparent;
     outline: 0; }
-    .ca-list .ca-list-item:hover {
+    .ca-list .ca-list-item:hover:not(.group):not(.label):not([aria-selected="true"]) {
       background-color: #eee; }
     .ca-list .ca-list-item:focus {
       border: 1px solid #666;
@@ -102,5 +102,17 @@
       cursor: not-allowed;
       pointer-events: none; }
     .ca-list .ca-list-item.label {
-      background-color: #f5f5f5; }
+      background-color: #cecece;
+      pointer-events: none; }
+    .ca-list .ca-list-item.group {
+      padding: 0 20px;
+      color: rgba(0, 0, 0, 0.322);
+      text-align: right;
+      font-weight: bold;
+      pointer-events: none; }
+      .ca-list .ca-list-item.group:before {
+        content: '';
+        display: block;
+        border-top: 1px solid #e0e0e0;
+        margin-bottom: 10px; }
 
