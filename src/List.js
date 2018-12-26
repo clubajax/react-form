@@ -233,7 +233,7 @@ export default class List extends React.Component {
                 ref={this.onNode}
             >
                 {options.map((item, i) => {
-                    const propLabel = typeof item.label === 'object' ? item.alias : item.label;
+                    const propLabel = typeof item.label !== 'object' ? item.label : item.alias || item.key || item.id || i;
                     const sel = value === item.value ? 'true' : 'false';
                     const foc = item.value === focusValue ? 'true' : 'false';
                     const id = `${ARIA_ITEM_PREFIX}${item.value}`;

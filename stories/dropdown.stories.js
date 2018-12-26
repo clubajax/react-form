@@ -97,6 +97,8 @@ const aliases = [
     }
 ];
 
+const domOptions = aliases.map(({ value, label }) => ({ value, label }));
+
 function onChange (e) {
     console.log('onChange.target', e.target.name, e.target.value);
     console.log('onChange.value', e.value);
@@ -139,6 +141,9 @@ storiesOf('Dropdown', module)
     ))
     .add('Alias', () => (
         <Dropdown options={aliases} placeholder="Choose your number..." defaultValue={null} label="Numbers" key="drop" />
+    ))
+    .add('Dom Options', () => (
+        <Dropdown options={domOptions} placeholder="Choose your number..." defaultValue={null} label="Numbers" key="drop" />
     ))
     .add('With Class', () => (
         <Dropdown options={withClass} placeholder="Choose your belt..." defaultValue={null} label="Katas" key="drop" />
