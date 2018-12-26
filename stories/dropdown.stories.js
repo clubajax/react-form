@@ -98,7 +98,10 @@ const aliases = [
 ];
 
 function onChange (e) {
-    console.log('onChange', e);
+    console.log('onChange.target', e.target.name, e.target.value);
+    console.log('onChange.value', e.value);
+    console.log('onChange.keyValue', e);
+
 }
 
 storiesOf('Dropdown', module)
