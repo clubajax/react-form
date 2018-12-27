@@ -43,7 +43,7 @@ export default class Popup extends React.Component {
         });
         this.clickHandle.pause();
 
-        this.keyMainHandle = on(document, 'keyup', (e) => {
+        this.keyMainHandle = on(buttonId, 'keyup', (e) => {
             switch (e.key) {
                 case 'Enter':
                 case 'ArrowDown':
