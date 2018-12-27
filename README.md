@@ -19,6 +19,13 @@ React Form aims to achieve ADA AA 2.0 - Americans with Disabilities Act, version
 Components have been tested for use without a mouse and with a screen reader.
 
 ### Style
+React Form is styled with SCSS, so a stylesheet will need to be imported:
+
+    @import 'node_modules/@clubajax/react-form/lib/react-form.css';
+
+React Form is very lightly styled, using grays and moderate padding and margins, so it will be easy to override to suit the application's needs.
+
+### Dropdown Style
 The Dropdown is an "inline" style, meaning that its popup is a descendant of the dropdown element tree, not an absolutely
 positioned DOMNode floating over the document. There are pros and cons to each style.
 
