@@ -28,6 +28,7 @@ Inline Pros:
  * Can have custom positioning, left/right/center
  * It is easy to inspect the DOM and debug
  * It's easier to conditionally style the popup, since it is a descendant of the Dropdown and whatever className is used on it.
+ * Less complexity in the positioning, which leads to less code to maintain and relatively fewer bugs
 
 Inline Cons:
 
