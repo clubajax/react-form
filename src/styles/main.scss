@@ -148,7 +148,7 @@
 
 .react-checkbox{
     display: inline-flex;
-    width: 100%;
+    // width: 100%;
     .react-checkbox-check{
         flex: 0 0 16px;
         border-radius: 2px;
@@ -168,7 +168,7 @@
         }
     }
     .react-checkbox-label{
-        flex: 1 1 auto;
+        flex: 1 0 auto;
         margin-left: 5px;
         font-size: 14px;
     }
@@ -179,7 +179,9 @@
     }
 
     &.check-after{
-        margin-left: 0;
-        margin-right: 5px;
+        .react-checkbox-label{
+            margin-left: 0;
+            margin-right: 5px;
+        }
     }
 }

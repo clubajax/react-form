@@ -35,4 +35,7 @@ storiesOf('Checkbox', module)
         <section><input /></section>,
         <Container value />,
         <section><input /></section>
+    ]))
+    .add('Check after', () => ([
+        <Checkbox label="My Checkbox" checkAfter onChange={onChange} defaultValue={null}/>
     ]));

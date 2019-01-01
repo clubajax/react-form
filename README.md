@@ -75,6 +75,16 @@ const options = [
 
 ## Properties
 
+### Checkbox
+
+ * **value** *[boolean, optional]*: (Controlled) If provided, sets the value of the Checkbox, `true` checks the Checkbox
+ * **defaultValue** *[boolean, optional]*: (Uncontrolled) If provided, sets the value of the Checkbox, `true` checks the Checkbox
+ * **label** *[string, optional]*: If provided, creates a label element above the Dropdown
+ * **checkAfter** *[boolean, optional]*: If true, the check will be rendered after the label
+ * **name** *[string, optional]*: The name of the component (as used in forms). Will change the event (see below)
+ * **placeholder** *[string, optional]*: The button display if no item is selected (defaults to "Select one...")
+ * **onChange** *[function, optional]*: The callback event when an item is selected (see Events below)
+
 ### Dropdown
 
  * **options** *[array, required]*: The items that will be used to create the drop-down list
@@ -83,13 +93,14 @@ const options = [
    * **class** *[string, optional]*: A className that will be appended to the option in the drop-down list
    * **alias** *[string, optional]*: The alternative text that will display in the in the button, not the drop-down list
    * **disabled** *[boolean, optional]*: Will make that option non-selectable
- * **value** *[string|integer, optional]*: If provided, sets the value of the Dropdown, and the display to the `label` of the `option` of that value
+ * **value** *[string|integer, optional]*: (Controlled) If provided, sets the value of the Dropdown, and the display to the `label` of the `option` of that value
+ * **defaultValue** *[string|integer, optional]*: (Uncontrolled) If provided, sets the value of the Dropdown, and the display to the `label` of the `option` of that value
  * **label** *[string, optional]*: If provided, creates a label element above the Dropdown
  * **name** *[string, optional]*: The name of the component (as used in forms). Will change the event (see below)
  * **placeholder** *[string, optional]*: The button display if no item is selected (defaults to "Select one...")
- * **onChange** *[function, optional]*: The callback event when an item is selected
+ * **onChange** *[function, optional]*: The callback event when an item is selected (see Events below)
 
-### Dropdown Event
+### Events for Dropdown and Checkbox
 
 If the `name` prop is not used, the `onChange` event simply passes the `value`.
 
@@ -126,7 +137,8 @@ The List is a sub-component of the Dropdown, so it will look and work in a simil
    * **label** *[string|DomNode, required]*: The text that will display in the list
    * **class** *[string, optional]*: A className that will be appended to the option in the list
    * **disabled** *[boolean, optional]*: Will make that option non-selectable
- * **value** *[string|integer, optional]*: If provided, sets the value of the List, and the display to the `label` of the `option` of that value
+ * **value** *[string|integer, optional]*: (Controlled) If provided, sets the value of the List, and the display to the `label` of the `option` of that value
+ * **defaultValue** *[string|integer, optional]*: (Uncontrolled) If provided, sets the value of the List, and the display to the `label` of the `option` of that value
  * **onChange** *[function, optional]*: The callback event when an item is selected. It will pass the options item.
  * **isMenu** *[boolean, optional]*: Will clear selection on close.
 
