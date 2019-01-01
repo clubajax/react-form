@@ -38,4 +38,7 @@ storiesOf('Checkbox', module)
     ]))
     .add('Check after', () => ([
         <Checkbox label="My Checkbox" checkAfter onChange={onChange} defaultValue={null}/>
+    ]))
+    .add('Default Checked', () => ([
+        <Checkbox label="My Checkbox Checked" onChange={onChange} defaultValue={true}/>
     ]));
