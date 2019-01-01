@@ -23,11 +23,11 @@ export default class Checkbox extends React.Component {
     }
 
     getValue () {
-        return this.uncontrolled ? !this.state.value : !this.props.value;
+        return this.props.disabled ? false : this.uncontrolled ? this.state.value : this.props.value;
     }
 
     getIcon () {
-        if (this.getValue()) {
+        if (!this.getValue()) {
             return null;
         }
         if (this.props.getIcon) {
@@ -37,7 +37,7 @@ export default class Checkbox extends React.Component {
     }
 
     toggle () {
-        let value = this.getValue();
+        let value = !this.getValue();
         if (this.uncontrolled) {
             this.setState({ value });
         }
@@ -57,12 +57,10 @@ export default class Checkbox extends React.Component {
     }
 
     onClick (e) {
-        console.log('click', e);
         this.toggle();
     }
 
     onKey (e) {
-        console.log('key', e);
         if (e.key === ' ' || e.key === 'Enter') {
             this.toggle();
         }
@@ -73,20 +71,23 @@ export default class Checkbox extends React.Component {
     }
 
     render () {
-        const checked = this.uncontrolled ? this.state.value : this.props.value;
-        const { checkAfter, label } = this.props;
+        const { checkAfter, label, disabled } = this.props;
+        const checked = this.getValue();
+        console.log('checked', checked);
+
         const chkId = label ? (this.id || uid('checkbox')) : null;
         const lblId = label ? (this.id || uid('label')) : null;
         const cls = classnames({
             'react-checkbox': true,
-            'check-after': checkAfter
+            'check-after': checkAfter,
+            disabled
         });
         const checkNode = (
             <span
                 role="checkbox"
                 aria-labelledby={lblId}
                 aria-checked={checked}
-                tabindex="0"
+                tabIndex="0"
                 className="react-checkbox-check"
                 onKeyPress={this.onKey}
             >{this.getIcon()}</span>

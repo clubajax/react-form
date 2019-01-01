@@ -27,18 +27,21 @@ function onChange (e) {
 
 storiesOf('Checkbox', module)
     .add('Uncontrolled', () => ([
-        <section><input /></section>,
-        <Checkbox label="My Checkbox" onChange={onChange} defaultValue={null}/>,
-        <section><input /></section>
+        <section key="1"><input /></section>,
+        <Checkbox key="2" label="My Checkbox" onChange={onChange} defaultValue={null}/>,
+        <section key="3"><input /></section>
     ]))
     .add('Controlled', () => ([
-        <section><input /></section>,
-        <Container value />,
-        <section><input /></section>
+        <section key="1"><input /></section>,
+        <Container value key="2"/>,
+        <section key="3"><input /></section>
     ]))
-    .add('Check after', () => ([
+    .add('Check after', () => (
         <Checkbox label="My Checkbox" checkAfter onChange={onChange} defaultValue={null}/>
-    ]))
-    .add('Default Checked', () => ([
+    ))
+    .add('Default Checked', () => (
         <Checkbox label="My Checkbox Checked" onChange={onChange} defaultValue={true}/>
-    ]));
+    ))
+    .add('Disabled', () => (
+        <Checkbox label="My Checkbox Checked" onChange={onChange} defaultValue={true} disabled/>
+    ));
