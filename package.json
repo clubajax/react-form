@@ -1,8 +1,9 @@
 {
   "name": "@clubajax/react-form",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "Form components for React",
   "main": "lib/index.js",
+  "typings": "./react-form.d.ts",
   "files": [
     "lib"
   ],

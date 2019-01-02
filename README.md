@@ -82,7 +82,6 @@ const options = [
  * **label** *[string, optional]*: If provided, creates a label element above the Dropdown
  * **checkAfter** *[boolean, optional]*: If true, the check will be rendered after the label
  * **name** *[string, optional]*: The name of the component (as used in forms). Will change the event (see below)
- * **placeholder** *[string, optional]*: The button display if no item is selected (defaults to "Select one...")
  * **onChange** *[function, optional]*: The callback event when an item is selected (see Events below)
 
 ### Dropdown
