@@ -22,8 +22,8 @@ function onAction (value) {
 }
 
 storiesOf('ActionMenu', module)
-  .add('Simple', () => (
-    <section>
-        <ActionMenu options={items} onAction={onAction}>Action Menu</ActionMenu>
-    </section>
+    .add('Simple', () => (
+        <section>
+            <ActionMenu options={items} onAction={onAction}>Action Menu</ActionMenu>
+        </section>
     ));

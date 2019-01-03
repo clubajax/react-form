@@ -37,7 +37,7 @@ export default class ActionButton extends React.Component {
         }
         return (
             <div className={classname}>
-                <button id={this.id} className="ca-button" aria-expanded={expanded}>
+                <button id={this.id} className="react-button" aria-expanded={expanded}>
                     {btnContent}
                 </button>
                 <Popup

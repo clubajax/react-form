@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import on from '@clubajax/on';
 import uid from './lib/uid';
 
-const ARIA_ITEM_PREFIX = 'ca-item-';
+const ARIA_ITEM_PREFIX = 'react-item-';
 
 // TODO: search key
 
@@ -52,18 +52,23 @@ export default class List extends React.Component {
     }
 
     onFocus () {
+        this.isFocused = true;
         this.connect();
     }
 
     onBlur () {
+        this.isFocused = false;
         this.disconnect();
-        if (this.props.isMenu) {
-            this.setState({
-                active: false,
-                focusValue: null,
-                value: null
-            })
-        }
+        setTimeout(() => {
+            if (!this.isFocused && this.props.isMenu) {
+                this.setState({
+                    active: false,
+                    focusValue: null,
+                    value: null
+                });
+            }
+        }, 60);
+
     }
 
     onClick (e) {
@@ -103,7 +108,7 @@ export default class List extends React.Component {
     }
 
     afterSelect () {
-        const selected = this.node.querySelector('.ca-list-item.focused');
+        const selected = this.node.querySelector('.react-list-item.focused');
         if (selected) {
             selected.focus();
         }
@@ -113,7 +118,7 @@ export default class List extends React.Component {
         this.setState({
             focusValue: node ? node.getAttribute('value') : null
         }, () => {
-            const focused = this.node.querySelector('.ca-list-item.focused');
+            const focused = this.node.querySelector('.react-list-item.focused');
             if (focused) {
                 focused.focus();
             }
@@ -128,6 +133,10 @@ export default class List extends React.Component {
 
         this.disconnect();
 
+        const nodeIsNavAble = (node) => {
+            return !node.hasAttribute('disabled') && !node.classList.contains('label') && !node.classList.contains('group');
+        };
+
         const getNode = (index) => {
             const nodes = this.node.querySelectorAll('li');
             if (index < 0 || index > nodes.length - 1) {
@@ -137,10 +146,6 @@ export default class List extends React.Component {
                 return null;
             }
             return nodes[index];
-        };
-
-        const nodeIsNavAble = (node) => {
-            return !node.hasAttribute('disabled') && !node.classList.contains('label') && !node.classList.contains('group');
         };
 
         const getPrevNode = (index) => {
@@ -172,8 +177,8 @@ export default class List extends React.Component {
         this.keyHandle = on(this.node, 'keydown', (e) => {
             const { focusValue } = this.state;
             let node;
-            let index = focusValue === null ?  -1 : this.props.options.findIndex(item => item.value === focusValue);
-            const focused = this.node.querySelector('.ca-list-item.focused, [aria-selected="true"]');
+            let index = focusValue === null ?  0 : this.props.options.findIndex(item => item.value === focusValue);
+            const focused = this.node.querySelector('.react-list-item.focused, [aria-selected="true"]');
             if (index === -1 && focused) {
                 const v = focused.getAttribute('value');
                 index = this.props.options.findIndex(item => item.value === v);
@@ -221,7 +226,7 @@ export default class List extends React.Component {
         const selectedId = selectedItem.value ? `${ARIA_ITEM_PREFIX}-${listId}-${selectedItem.value}` : null;
         const rootTabIndex = selectedId ? -1 : 0;
         let classname = classnames({
-            'ca-list': true
+            'react-list': true
         });
         if (className) {
             classname = `${classname} ${className}`;
@@ -233,8 +238,8 @@ export default class List extends React.Component {
                 className={classname}
                 role="listbox"
                 tabIndex={rootTabIndex}
-                onFocus={this.onFocus}
                 onBlur={this.onBlur}
+                onFocus={this.onFocus}
                 ref={this.onNode}
             >
                 {options.map((item, i) => {
@@ -244,10 +249,10 @@ export default class List extends React.Component {
                     const id = `${ARIA_ITEM_PREFIX}${item.value}`;
                     const tabIndex = foc === 'true' ? 0 : -1;
                     let cls = classnames({
-                        'ca-list-item': true,
+                        'react-list-item': true,
                         label: item.type === 'label',
                         group: item.type === 'group',
-                        'focused': foc === 'true' // not actually styled used for querying
+                        'focused': foc === 'true' // used for querying
                     });
                     if (item.class) {
                         cls = `${cls} ${item.class}`;
