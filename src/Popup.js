@@ -82,9 +82,6 @@ export default class Popup extends React.Component {
             const pop = box(this.node);
             let vert = 'down';
             let horz = 'left';
-            console.log('open');
-            console.log('win', win);
-            console.log('pop', pop);
 
             if (pop.y + pop.h > win.h) {
                 vert = 'up'

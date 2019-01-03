@@ -13,7 +13,7 @@ declare module '@clubajax/react-form' {
         label?: string;
         name?: string;
         className?: string;
-        children?: ReactNode;
+        children?: any;
         onAction?: () => {};
         options?: IActionButtonOption[];
     }
@@ -52,6 +52,6 @@ declare module '@clubajax/react-form' {
         options?: IDropdownOption[];
     }
 
-    export class Dropdown extends React.Component<any> {}
+    export class Dropdown extends React.Component<IDropdownProps> {}
 
 }
