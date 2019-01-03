@@ -13,7 +13,7 @@
   "scripts": {
     "story": "start-storybook -p 9001 -c .storybook",
     "build": "webpack --config ./webpack.config.js --mode production",
-    "deploy": "build-storybook -c .storybook -o dist"
+    "deploy": "build-storybook -c .storybook -o react-form"
   },
   "peerDependencies": {
     "react": ">=16.3.2-0 <17.0.0",

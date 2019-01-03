@@ -10,7 +10,9 @@ Currently the main component is a Dropdown, with useable sub-components: Popup a
 
     npm install @clubajax/react-form
 
-## Description
+## Demo
+
+[See React Form in action on clubajax.io](https://clubajax.github.io/dist/react-form/index.html)
 
 ### Accessibility
 

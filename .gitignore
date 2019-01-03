@@ -2,6 +2,8 @@
 .DS_Store?
 ._*
 
+/dist
+/react-form
 /tmp
 /node_modules
 /bower_components
