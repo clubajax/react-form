@@ -10,6 +10,7 @@ export default class ActionButton extends React.Component {
         this.id = uid('action-button');
         this.onClose = this.onClose.bind(this);
         this.onOpen = this.onOpen.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
     onOpen () {
@@ -18,15 +19,24 @@ export default class ActionButton extends React.Component {
 
     onClose () {
         this.setState({ expanded: 'false' });
-        // document.getElementById(this.id).focus();
+    }
+
+    onChange (e) {
+        if (this.props.onAction) {
+            this.props.onAction(e);
+        }
     }
 
     render () {
-        const { options, label, children } = this.props;
+        const { options, label, children, className } = this.props;
         const { expanded } = this.state;
         const btnContent = label || children;
+        let classname = 'react-actionbutton react-popup-container';
+        if (className) {
+            classname = `${classname} ${className}`;
+        }
         return (
-            <div className="react-actionbutton react-popup-container">
+            <div className={classname}>
                 <button id={this.id} className="ca-button" aria-expanded={expanded}>
                     {btnContent}
                 </button>
@@ -39,6 +49,7 @@ export default class ActionButton extends React.Component {
                     <List
                         options={options}
                         defaultValue={null}
+                        onChange={this.onChange}
                         isMenu
                     />
                 </Popup>

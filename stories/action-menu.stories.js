@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import ActionButton from '../src/ActionButton';
+import ActionMenu from '../src/ActionMenu';
 
 console.clear();
 
@@ -15,8 +15,15 @@ const items = [
         value: 'c',
         label: 'Superfluous'
     }
-]
-storiesOf('ActionButton', module)
+];
+
+function onAction (value) {
+    console.log('value', value);
+}
+
+storiesOf('ActionMenu', module)
   .add('Simple', () => (
-      <section key="2"><ActionButton options={items} key="list">Super Button</ActionButton></section>
+    <section>
+        <ActionMenu options={items} onAction={onAction}>Action Menu</ActionMenu>
+    </section>
     ));

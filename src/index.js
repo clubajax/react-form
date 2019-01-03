@@ -1,9 +1,9 @@
 import './styles/main.scss';
 import Dropdown from './Dropdown';
 import Checkbox from './Checkbox';
-import ActionButton from './ActionButton';
+import ActionMenu from './ActionMenu';
 import Popup from './Popup';
 import List from './List';
 import equal from './lib/equal';
 
-export { Checkbox, Dropdown, ActionButton, Popup, List, equal };
+export { Checkbox, Dropdown, ActionMenu, Popup, List, equal };

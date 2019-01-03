@@ -2,6 +2,24 @@
 declare module '@clubajax/react-form' {
     import * as React from "react";
 
+    export interface IActionButtonOption {
+        value: string;
+        label: string;
+        key?: string;
+        className?: string;
+    }
+
+    export interface IActionButtonProps {
+        label?: string;
+        name?: string;
+        className?: string;
+        children?: ReactNode;
+        onAction?: () => {};
+        options?: IActionButtonOption[];
+    }
+
+    export class ActionButton extends React.Component<IActionButtonProps> {}
+
     export interface ICheckboxProps {
         value?: boolean;
         defaultValue?: boolean;
@@ -14,10 +32,11 @@ declare module '@clubajax/react-form' {
     export class Checkbox extends React.Component<ICheckboxProps> {}
 
     export interface IDropdownOption {
-        value: string,
-        label: string,
-        alias?: string,
-        key?: string
+        value: string;
+        label: string;
+        alias?: string;
+        key?: string;
+        className?: string;
     }
 
     export interface IDropdownProps {
@@ -28,8 +47,9 @@ declare module '@clubajax/react-form' {
         disabled?: boolean;
         placeholder?: string;
         id?: string;
+        className?: string;
         onChange?: any;
-        options?: IDropdownOption[]
+        options?: IDropdownOption[];
     }
 
     export class Dropdown extends React.Component<any> {}

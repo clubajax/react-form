@@ -60,6 +60,9 @@ $dsbl: #9e9e9e;
             color: #aaa;
         }
     }
+    .react-popup{
+        min-width: 100%;
+    }
 }
 
 .react-popup-container{
@@ -70,7 +73,6 @@ $dsbl: #9e9e9e;
     z-index: 100;
     left: 0;
     top: 100%;
-    width: 100%;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -78,6 +80,14 @@ $dsbl: #9e9e9e;
     display: none;
     outline: none;
     background-color: white;
+    &.up{
+        top: auto;
+        bottom: 100%;
+    }
+    &.right{
+        left: auto;
+        right: 0;
+    }
     li{
         padding: 10px;
         cursor: pointer;
@@ -89,6 +99,7 @@ $dsbl: #9e9e9e;
             background-color: #333;
             color: white;
         }
+        white-space: nowrap;
     }
     &.open{
         display: block;

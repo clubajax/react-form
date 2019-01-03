@@ -213,16 +213,19 @@ export default class List extends React.Component {
 
     render () {
         const { options = [] } = this.props;
-        const { listId, focusValue } = this.state;
+        const { listId, focusValue, className } = this.state;
 
         const value = this.uncontrolled ? this.state.value : this.props.value;
 
         const selectedItem = options.find(item => item.value === value) || {};
         const selectedId = selectedItem.value ? `${ARIA_ITEM_PREFIX}-${listId}-${selectedItem.value}` : null;
         const rootTabIndex = selectedId ? -1 : 0;
-        const classname = classnames({
+        let classname = classnames({
             'ca-list': true
         });
+        if (className) {
+            classname = `${classname} ${className}`;
+        }
 
         return (
             <ul

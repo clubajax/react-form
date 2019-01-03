@@ -1,6 +1,6 @@
 {
   "name": "@clubajax/react-form",
-  "version": "0.3.5",
+  "version": "0.4.0",
   "description": "Form components for React",
   "main": "lib/index.js",
   "typings": "./lib/react-form.d.ts",
@@ -12,7 +12,8 @@
   "license": "MIT",
   "scripts": {
     "story": "start-storybook -p 9001 -c .storybook",
-    "build": "webpack --config ./webpack.config.js --mode production"
+    "build": "webpack --config ./webpack.config.js --mode production",
+    "deploy": "build-storybook -c .storybook -o dist"
   },
   "peerDependencies": {
     "react": ">=16.3.2-0 <17.0.0",

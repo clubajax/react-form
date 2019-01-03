@@ -159,4 +159,19 @@ storiesOf('Dropdown', module)
             <Dropdown options={withDisabled} placeholder="Choose your kata..." defaultValue="b" label="More Forms" key="drop" />
             <p key="p">Page should not scroll when using arrow keys</p>
         </section>
+    ))
+    .add('Skinny Column', () => (
+        <section className="skinny">
+            <Dropdown className="special" options={aliases} placeholder="Choose your belt..." defaultValue={null} label="Katas" key="drop" />
+        </section>
+    ))
+    .add('Bottom, pop upward', () => (
+        <section className="skinny pos-bottom">
+            <Dropdown className="special" options={aliases} placeholder="Choose your belt..." defaultValue={null} label="Katas" key="drop" />
+        </section>
+    ))
+    .add('Bottom, pop leftward', () => (
+        <section className="skinny pos-right">
+            <Dropdown className="special" options={aliases} placeholder="Choose your belt..." defaultValue={null} label="Katas" key="drop" />
+        </section>
     ));

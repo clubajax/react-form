@@ -71,17 +71,20 @@ export default class Checkbox extends React.Component {
     }
 
     render () {
-        const { checkAfter, label, disabled } = this.props;
+        const { checkAfter, label, disabled, className } = this.props;
         const checked = this.getValue();
         console.log('checked', checked);
 
         const chkId = label ? (this.id || uid('checkbox')) : null;
         const lblId = label ? (this.id || uid('label')) : null;
-        const cls = classnames({
+        const classname = classnames({
             'react-checkbox': true,
             'check-after': checkAfter,
             disabled
         });
+        if (className) {
+            classname = `${classname} ${className}`;
+        }
         const checkNode = (
             <span
                 role="checkbox"
@@ -100,7 +103,7 @@ export default class Checkbox extends React.Component {
             >{label}</label>
         );
         return (
-            <div className={cls} onClick={this.onClick} ref={this.onNode}>
+            <div className={classname} onClick={this.onClick} ref={this.onNode}>
                 {checkAfter && labelNode}
                 {checkAfter && checkNode}
                 {!checkAfter && checkNode}

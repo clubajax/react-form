@@ -45,6 +45,8 @@
     pointer-events: none; }
   .react-dropdown.has-placeholder button {
     color: #aaa; }
+  .react-dropdown .react-popup {
+    min-width: 100%; }
 
 .react-popup-container {
   position: relative; }
@@ -54,7 +56,6 @@
   z-index: 100;
   left: 0;
   top: 100%;
-  width: 100%;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -62,10 +63,17 @@
   display: none;
   outline: none;
   background-color: white; }
+  .react-popup.up {
+    top: auto;
+    bottom: 100%; }
+  .react-popup.right {
+    left: auto;
+    right: 0; }
   .react-popup li {
     padding: 10px;
     cursor: pointer;
-    font-family: inherit; }
+    font-family: inherit;
+    white-space: nowrap; }
     .react-popup li:hover {
       background-color: #eee; }
     .react-popup li[aria-selected="true"] {

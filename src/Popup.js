@@ -9,7 +9,9 @@ export default class Popup extends React.Component {
     constructor () {
         super();
         this.state = {
-            open: false
+            open: false,
+            vert: 'down',
+            horz: 'left'
         };
         this.onNode = this.onNode.bind(this);
     }
@@ -75,8 +77,26 @@ export default class Popup extends React.Component {
         if (this.state.open) {
             return;
         }
-        this.setState({ open: true }, () => {
-            this.node.firstElementChild.focus();
+        this.setState({ open: true, vert: 'down', horz: 'left' }, () => {
+            const win = box(window);
+            const pop = box(this.node);
+            let vert = 'down';
+            let horz = 'left';
+            console.log('open');
+            console.log('win', win);
+            console.log('pop', pop);
+
+            if (pop.y + pop.h > win.h) {
+                vert = 'up'
+            }
+
+            if (pop.x + pop.w > win.w) {
+                horz = 'right';
+            }
+
+            this.setState({ vert, horz }, () => {
+                this.node.firstElementChild.focus();
+            });
         });
         setTimeout(() => {
             this.keyHandle.resume();
@@ -131,7 +151,9 @@ export default class Popup extends React.Component {
     render () {
         const {
             state: {
-                open
+                open,
+                vert,
+                horz
             },
             props: {
                 children
@@ -139,6 +161,8 @@ export default class Popup extends React.Component {
         } = this;
         const classname = classnames({
             'react-popup': true,
+            [vert]: true,
+            [horz]: true,
             open
         });
         return (
@@ -147,4 +171,25 @@ export default class Popup extends React.Component {
             </div>
         );
     }
+}
+
+function box (node) {
+    if (node === window) {
+        node = document.documentElement;
+    }
+    const d = node.getBoundingClientRect();
+    return {
+        top: d.top,
+        right: d.right,
+        bottom: d.bottom,
+        left: d.left,
+        height: d.height,
+        h: d.height,
+        width: d.width,
+        w: d.width,
+        scrollY: window.scrollY,
+        scrollX: window.scrollX,
+        x: d.left + window.pageXOffset,
+        y: d.top + window.pageYOffset
+    };
 }

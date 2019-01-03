@@ -40,8 +40,9 @@ Inline Pros:
 Inline Cons:
 
  * Certain page layouts cannot be used. Specifically anything with `position: absolute` (rare) or `overflow: hidden` (more common).
+ * The width of the popup is based on the component width, not the window width.
 
-Absolute Positioned Pros and Cons are the inverse of teh lists above.
+Absolute Positioned Pros and Cons are the inverse of the lists above.
 
 ### Controlled vs Uncontrolled
 
@@ -117,6 +118,20 @@ If the name prop **is** used, the event has the folowing shape:
     }
 }
 ```
+## ActionMenu
+
+ActionMenu is a button that opens a drop-down list. When an item is selected in the menu, an `onAction` event is called. The `onAction` event will
+fire, passing teh value from the list item.
+
+ * **options** *[array, required]*: The items that will be used to create the menu
+   * **value** *[string|integer, required]*: The unique identifier of the option
+   * **label** *[string|DomNode, required]*: The text that will display in the menu
+   * **class** *[string, optional]*: A className that will be appended to the option in the menu
+   * **disabled** *[boolean, optional]*: Will make that option non-selectable
+ * **label** *[string, optional]*: If provided, creates a label element above the Dropdown
+ * **children** *[string | ReactNode, optional]* Alternative to label: `<ActionMenu>Label Here</ActionMenu>`
+ * **onAction** *[function, optional]*: The callback event when an item is selected (see Events below)
+
 ## Popup
 
 The Popup will show/hide its contents, positioning itself relative to its parent/owner component. It will display whatever
