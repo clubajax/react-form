@@ -21,16 +21,15 @@ export default class Popup extends React.Component {
         }
         const button = document.getElementById(buttonId);
 
-        this.keyHandle = on(document, 'keyup', (e) => {
+        this.keyHandle = on(document, 'keydown', (e) => {
             switch (e.key) {
                 case 'Escape':
                     this.close();
                     break;
                 case 'Tab':
-                    const focused = document.activeElement;
-                    if (!button.contains(focused) && !this.node.contains(focused)) {
-                        this.close();
-                    }
+                    setTimeout(() => {
+                        this.detectBlur(e);
+                    }, 1);
                     break;
                 default:
                     this.detectBlur(e);
@@ -43,10 +42,11 @@ export default class Popup extends React.Component {
         });
         this.clickHandle.pause();
 
-        this.keyMainHandle = on(buttonId, 'keyup', (e) => {
+        this.keyMainHandle = on(buttonId, 'keydown', (e) => {
             switch (e.key) {
                 case 'Enter':
                 case 'ArrowDown':
+                    e.preventDefault();
                     this.open();
                     break;
             }
@@ -113,8 +113,6 @@ export default class Popup extends React.Component {
         }
         const active = document.activeElement;
         if (!this.parent.contains(active)) {
-            // console.log('active', active);
-            // console.log('parent', this.parent);
             this.close();
         }
     }

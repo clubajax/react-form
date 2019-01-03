@@ -169,7 +169,7 @@ export default class List extends React.Component {
             return node;
         };
 
-        this.keyHandle = on(this.node, 'keyup', (e) => {
+        this.keyHandle = on(this.node, 'keydown', (e) => {
             const { focusValue } = this.state;
             let node;
             let index = focusValue === null ?  -1 : this.props.options.findIndex(item => item.value === focusValue);
@@ -185,9 +185,11 @@ export default class List extends React.Component {
                     this.select(focusValue);
                     return;
                 case 'ArrowUp':
+                    e.preventDefault();
                     node = getPrevNode(index);
                     break;
                 case 'ArrowDown':
+                    e.preventDefault();
                     node = getNextNode(index);
                     break;
                 default:

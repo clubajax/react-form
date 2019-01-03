@@ -28,7 +28,7 @@ declare module '@clubajax/react-form' {
         disabled?: boolean;
         placeholder?: string;
         id?: string;
-        onChange?: (e : ChangeEvent<HTMLInputElement>) => void;
+        onChange?: any;
         options?: IDropdownOption[]
     }
 

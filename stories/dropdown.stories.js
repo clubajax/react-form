@@ -153,4 +153,10 @@ storiesOf('Dropdown', module)
     ))
     .add('Disabled Options', () => (
         <Dropdown options={withDisabled} placeholder="Choose your kata..." defaultValue="b" label="More Forms" key="drop" />
+    ))
+    .add('Disabled Options - no page scroll', () => (
+        <section style={{marginBottom: '1000px'}}>
+            <Dropdown options={withDisabled} placeholder="Choose your kata..." defaultValue="b" label="More Forms" key="drop" />
+            <p key="p">Page should not scroll when using arrow keys</p>
+        </section>
     ));
