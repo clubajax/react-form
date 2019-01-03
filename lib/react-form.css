@@ -1,4 +1,4 @@
-.ca-button {
+.react-button {
   border: 1px solid #666;
   background-color: #999;
   color: white;
@@ -7,9 +7,9 @@
   outline: 0;
   cursor: pointer;
   font-family: inherit; }
-  .ca-button:hover {
+  .react-button:hover {
     background-color: #aaa; }
-  .ca-button:focus {
+  .react-button:focus {
     box-shadow: 0 0 10px white inset; }
 
 .react-dropdown,
@@ -82,44 +82,44 @@
   .react-popup.open {
     display: block; }
 
-.ca-list {
+.react-list {
   list-style: none;
   margin: 0;
   padding: 0;
   border: 1px solid #999;
   outline: none; }
-  .ca-list .ca-list-item {
+  .react-list .react-list-item {
     padding: 10px;
     cursor: pointer;
     border: 1px solid transparent;
     outline: 0; }
-    .ca-list .ca-list-item:hover:not(.group):not(.label):not([aria-selected="true"]) {
+    .react-list .react-list-item:hover:not(.group):not(.label):not([aria-selected="true"]) {
       background-color: #eee; }
-    .ca-list .ca-list-item:focus {
+    .react-list .react-list-item:focus {
       border: 1px solid #666;
       outline: 0; }
-    .ca-list .ca-list-item[aria-selected="true"] {
+    .react-list .react-list-item[aria-selected="true"] {
       background-color: #333;
       color: white; }
-      .ca-list .ca-list-item[aria-selected="true"]:focus {
+      .react-list .react-list-item[aria-selected="true"]:focus {
         border: 1px solid transparent;
         box-shadow: 0 0 10px white inset; }
-    .ca-list .ca-list-item[disabled] {
+    .react-list .react-list-item[disabled] {
       background-color: #ccc;
       color: #666;
       font-style: italic;
       cursor: not-allowed;
       pointer-events: none; }
-    .ca-list .ca-list-item.label {
+    .react-list .react-list-item.label {
       background-color: #cecece;
       pointer-events: none; }
-    .ca-list .ca-list-item.group {
+    .react-list .react-list-item.group {
       padding: 0 20px;
       color: rgba(0, 0, 0, 0.322);
       text-align: right;
       font-weight: bold;
       pointer-events: none; }
-      .ca-list .ca-list-item.group:before {
+      .react-list .react-list-item.group:before {
         content: '';
         display: block;
         border-top: 1px solid #e0e0e0;
