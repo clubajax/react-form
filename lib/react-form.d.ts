@@ -40,8 +40,8 @@ declare module '@clubajax/react-form' {
     }
 
     export interface IDropdownProps {
-        value?: string;
-        defaultValue?: string;
+        value?: string | null;
+        defaultValue?: string | null;
         label?: string;
         name?: string;
         disabled?: boolean;
