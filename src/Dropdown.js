@@ -5,6 +5,8 @@ import List from './List';
 import uid from './lib/uid';
 import equal from './lib/equal';
 
+// TODO: combobox: https://dequelabs.github.io/combobo/demo/
+
 function getLabel (value, options = []) {
     const item = options.find(item => item.value === value);
     if (!item) {
@@ -30,7 +32,8 @@ export default class Dropdown extends React.Component {
         this.state = {
             value: null,
             buttonLabel: '',
-            labelId: props.label ? uid('label') : null,
+            labelId: props.labelId ? props.labelId : props.label ? uid('label') : null,
+            isInvalid: props.isInvalid,
             buttonId: uid('button'),
             open: false,
             focusIndex: null,
@@ -45,6 +48,7 @@ export default class Dropdown extends React.Component {
         this.onOpen = this.onOpen.bind(this);
         this.onChange = this.onChange.bind(this);
         this.onNode = this.onNode.bind(this);
+        this.getSelectedId = this.getSelectedId.bind(this);
     }
 
     getIcon () {
@@ -86,13 +90,22 @@ export default class Dropdown extends React.Component {
         }
     }
 
+    getSelectedId () {
+        if (!this.node) {
+            return null;
+        }
+        const { value } = this.state;
+        const node = this.node.querySelector(`[value="${value}"]`);
+        return node ? node.id : null;
+    }
+
     onNode (node) {
         this.node = this.node || node;
     }
 
     render () {
         const { options = [], label, placeholder = 'Select One...', disabled, className } = this.props;
-        const { buttonLabel, value, open, labelId, buttonId, expanded } = this.state;
+        const { buttonLabel, value, labelId, errorId, isInvalid, expanded } = this.state;
         const content = buttonLabel || placeholder;
         let classname = classnames({
             'react-dropdown': true,
@@ -104,9 +117,19 @@ export default class Dropdown extends React.Component {
         }
         return (
             <div className={classname}>
-                {label && <label id={labelId} htmlFor={buttonId} key="label">{label}</label>}
+                {label && <label id={labelId} htmlFor={this.id} key="label">{label}</label>}
                 <div className="react-popup-container" value={value} ref={this.onNode}>
-                    <button id={this.id} aria-expanded={expanded} disabled={disabled} type="button" className="react-dropdown-button">
+                    <button
+                        id={this.id}
+                        aria-labelledby={labelId}
+                        aria-expanded={expanded}
+                        aria-invalid={isInvalid}
+                        aria-describedby={errorId}
+                        aria-activedescendant={this.getSelectedId()}
+                        disabled={disabled}
+                        type="button"
+                        className="react-dropdown-button"
+                        >
                         <span>{content}</span>
                         {this.getIcon()}
                     </button>
@@ -120,6 +143,7 @@ export default class Dropdown extends React.Component {
                             options={options}
                             onChange={this.onChange}
                             value={value}
+
                         />
                     </Popup>
                 </div>

@@ -19,7 +19,7 @@
 .react-dropdown {
   position: relative;
   margin-bottom: 10px; }
-  .react-dropdown button {
+  .react-dropdown .react-dropdown-button {
     background-color: transparent;
     border: 1px solid #999;
     width: 100%;
@@ -30,12 +30,12 @@
     font-size: 14px;
     margin-top: 5px;
     font-family: inherit; }
-    .react-dropdown button:hover {
+    .react-dropdown .react-dropdown-button:hover {
       background-color: #eee; }
-    .react-dropdown button span {
+    .react-dropdown .react-dropdown-button span {
       flex: 1 1 auto;
       align-self: center; }
-    .react-dropdown button .react-icon {
+    .react-dropdown .react-dropdown-button .react-icon {
       flex: 0 0 20px; }
   .react-dropdown.disabled button {
     background-color: #ddd;

@@ -60,8 +60,6 @@ export default class Popup extends React.Component {
             } else {
                 this.open();
             }
-            e.preventDefault();
-            e.stopPropagation();
             return false;
         });
     }
