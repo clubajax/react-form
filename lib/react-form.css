@@ -29,9 +29,12 @@
     display: flex;
     font-size: 14px;
     margin-top: 5px;
-    font-family: inherit; }
+    font-family: inherit;
+    outline: 0; }
     .react-dropdown .react-dropdown-button:hover {
       background-color: #eee; }
+    .react-dropdown .react-dropdown-button:focus {
+      box-shadow: 0 0 2px 2px #c9d4e9; }
     .react-dropdown .react-dropdown-button span {
       flex: 1 1 auto;
       align-self: center; }
@@ -91,19 +94,18 @@
   .react-list .react-list-item {
     padding: 10px;
     cursor: pointer;
-    border: 1px solid transparent;
+    border: 0;
     outline: 0; }
     .react-list .react-list-item:hover:not(.group):not(.label):not([aria-selected="true"]) {
       background-color: #eee; }
     .react-list .react-list-item:focus {
-      border: 1px solid #666;
-      outline: 0; }
+      outline: 0;
+      box-shadow: 0 0 2px 2px #c9d4e9 inset; }
     .react-list .react-list-item[aria-selected="true"] {
       background-color: #333;
       color: white; }
       .react-list .react-list-item[aria-selected="true"]:focus {
-        border: 1px solid transparent;
-        box-shadow: 0 0 10px white inset; }
+        box-shadow: 0 0 10px #c9d4e9 inset; }
     .react-list .react-list-item[disabled] {
       background-color: #ccc;
       color: #666;
