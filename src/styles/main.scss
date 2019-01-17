@@ -1,5 +1,5 @@
 $dsbl: #9e9e9e;
-
+$focus: rgb(201, 212, 233);
 .react-button{
     border: 1px solid #666;
     background-color: #999;
@@ -23,7 +23,7 @@ $dsbl: #9e9e9e;
 .react-dropdown{
     position: relative;
     margin-bottom: 10px;
-    // label{}
+
     .react-dropdown-button{
         background-color: transparent;
         border: 1px solid #999;
@@ -35,8 +35,12 @@ $dsbl: #9e9e9e;
         font-size: 14px;
         margin-top: 5px;
         font-family: inherit;
+        outline: 0;
         &:hover{
             background-color: #eee;
+        }
+        &:focus{
+            box-shadow: 0 0 2px 2px $focus;
         }
         span{
             flex: 1 1 auto;
@@ -45,6 +49,7 @@ $dsbl: #9e9e9e;
         .react-icon{
             flex: 0 0 20px;
         }
+
     }
     &.disabled{
         button{
@@ -115,21 +120,20 @@ $dsbl: #9e9e9e;
     .react-list-item{
         padding: 10px;
         cursor: pointer;
-        border: 1px solid transparent;
+        border: 0;
         outline: 0;
         &:hover:not(.group):not(.label):not([aria-selected="true"]){
             background-color: #eee;
         }
         &:focus{
-            border: 1px solid #666;
             outline: 0;
+            box-shadow: 0 0 2px 2px $focus inset;
         }
         &[aria-selected="true"]{
             background-color: #333;
             color: white;
             &:focus{
-                border: 1px solid transparent;
-                box-shadow: 0 0 10px white inset;
+                box-shadow: 0 0 10px $focus inset;
             }
         }
         &[disabled] {

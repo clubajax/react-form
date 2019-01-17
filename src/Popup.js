@@ -117,7 +117,7 @@ export default class Popup extends React.Component {
     delayedClose () {
         setTimeout(() => {
             this.close();
-        }, 200);
+        }, 100);
     }
 
     detectBlur (e) {
