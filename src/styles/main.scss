@@ -221,3 +221,47 @@ $focus: rgb(201, 212, 233);
         }
     }
 }
+
+$rsz: 14px;
+
+.react-radios-label{
+    display: block;
+    margin-bottom: 10px;
+}
+
+.react-radio{
+    display: inline-flex;
+    cursor: pointer;
+    span{
+        display: inline-block;
+        width: $rsz;
+        height: $rsz;
+        border-radius: 50%;
+        border: 1px solid black;
+        &:after{
+            content: '';
+            display: block;
+            background-color: black;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            transform: scale(0);
+        }
+        &[aria-checked="true"]{
+            &:after{
+                transform: scale(.8);
+            } 
+        }
+    }
+    label, span{
+        align-self: center;
+    }
+    label{
+        
+        margin: 0 10px 0 5px;
+    }
+    &.check-after label{
+        margin: 0 5px 0 10px;
+    }
+
+}

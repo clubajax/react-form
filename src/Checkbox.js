@@ -7,7 +7,6 @@ export default class Checkbox extends React.Component {
 
     constructor (props) {
         super();
-        console.log('props.defaultValue', props.defaultValue);
         this.uncontrolled = props.defaultValue !== undefined;
         if (!this.uncontrolled && !props.onChange) {
             console.error('A controlled Checkbox will need an `onChange` event')
