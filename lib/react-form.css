@@ -171,3 +171,49 @@
     .react-checkbox.disabled .react-checkbox-label {
       color: #9e9e9e; }
 
+.react-radios-label {
+  display: block;
+  margin-bottom: 10px; }
+
+.react-radios[disabled] .react-radios-label {
+  color: #9e9e9e; }
+
+.react-radio {
+  display: inline-flex;
+  cursor: pointer; }
+  .react-radio .react-radio-button {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid black;
+    outline: 0; }
+    .react-radio .react-radio-button:after {
+      content: '';
+      display: block;
+      background-color: black;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      transform: scale(0); }
+    .react-radio .react-radio-button[aria-checked="true"]:after {
+      transform: scale(0.8); }
+    .react-radio .react-radio-button:focus {
+      box-shadow: 0 0 3px 3px #c9d4e9; }
+  .react-radio .react-radio-label,
+  .react-radio .react-radio-button {
+    align-self: center; }
+  .react-radio .react-radio-label {
+    margin: 0 10px 0 5px; }
+  .react-radio.check-after .react-radio-label {
+    margin: 0 5px 0 10px; }
+  .react-radio.disabled {
+    pointer-events: none; }
+    .react-radio.disabled .react-radio-button {
+      pointer-events: none;
+      border-color: #9e9e9e; }
+      .react-radio.disabled .react-radio-button:after {
+        background-color: transparent; }
+    .react-radio.disabled .react-radio-label {
+      color: #9e9e9e; }
+

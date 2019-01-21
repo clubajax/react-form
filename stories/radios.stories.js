@@ -4,6 +4,24 @@ import Radios, { Radio } from '../src/Radios';
 
 console.clear();
 
+const options = [
+    { value: 'a', label: 'Radios AA'},
+    { value: 'b', label: 'Radios BB'},
+    { value: 'c', label: 'Radios CC'}
+];
+
+const withDisabled = [
+    { value: 'a', label: 'Radios AA'},
+    { value: 'b', label: 'Radios BB', disabled: true },
+    { value: 'c', label: 'Radios CC'}
+];
+
+const withClass = [
+    { value: 'a', label: 'Radios AA', class: 'orange'},
+    { value: 'b', label: 'Radios BB', disabled: true, class: 'green' },
+    { value: 'c', label: 'Radios CC', class: 'blue' }
+];
+
 class Container extends React.Component {
     // for testing controlled component
     constructor (props) {
@@ -16,23 +34,27 @@ class Container extends React.Component {
     render () {
         const { value } = this.state;
         return (
-            <Checkbox value={value} onChange={(e) => { this.setState({ value: e })}} label="Is you is or is you not" />
+            <Radios options={options} value={value} onChange={(e) => { this.setState({ value: e })}} />
         )
     }
 }
-
-const list = [
-    { value: 'a', label: 'Radios AA'},
-    { value: 'b', label: 'Radios BB'},
-    { value: 'c', label: 'Radios CC'}
-];
 
 function onChange (e) {
     console.log('onChange', e);
 }
 
 storiesOf('Radios', module)
-    .add('Radio style', () => (
+    .add('Controlled', () => (
+        <section>
+            <Container value="c" />
+        </section>
+    ))
+    .add('Uncontrolled', () => (
+        <section>
+            <Radios options={options} defaultValue="b" />
+        </section>
+    ))
+    .add('Style', () => (
         <div>
             <section>
                 <Radio key="1" label="Radio AA" onChange={onChange} checked />
@@ -44,13 +66,23 @@ storiesOf('Radios', module)
             </section>
         </div>
     ))
-    .add('Radios', () => (
+    .add('With Label', () => (
         <section>
-            <Radios list={list} defaultValue="b" />
+            <Radios options={options} label="All my Radio" defaultValue="b" />
         </section>
     ))
-    .add('Radios with Label', () => (
+    .add('All Disabled', () => (
         <section>
-            <Radios list={list} label="All my Radio" defaultValue="b" />
+            <Radios options={options} label="All my Radio" defaultValue="b" disabled />
+        </section>
+    ))
+    .add('One Disabled', () => (
+        <section>
+            <Radios options={withDisabled} label="All my Radio" defaultValue="b" />
+        </section>
+    ))
+    .add('With Class', () => (
+        <section>
+            <Radios options={withClass} label="All my Radio" defaultValue="b" className="bordered" />
         </section>
     ));

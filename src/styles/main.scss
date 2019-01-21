@@ -229,15 +229,20 @@ $rsz: 14px;
     margin-bottom: 10px;
 }
 
+.react-radios[disabled] .react-radios-label{
+    color: $dsbl;
+}
+
 .react-radio{
     display: inline-flex;
     cursor: pointer;
-    span{
+    .react-radio-button{
         display: inline-block;
         width: $rsz;
         height: $rsz;
         border-radius: 50%;
         border: 1px solid black;
+        outline: 0;
         &:after{
             content: '';
             display: block;
@@ -252,16 +257,31 @@ $rsz: 14px;
                 transform: scale(.8);
             } 
         }
+        &:focus{
+            box-shadow: 0 0 3px 3px $focus;
+        }
     }
-    label, span{
+    .react-radio-label,
+    .react-radio-button{
         align-self: center;
     }
-    label{
-        
+    .react-radio-label{
         margin: 0 10px 0 5px;
     }
-    &.check-after label{
+    &.check-after .react-radio-label{
         margin: 0 5px 0 10px;
     }
-
+    &.disabled{
+        pointer-events: none;
+        .react-radio-button{
+            pointer-events: none;
+            border-color: $dsbl;
+            &:after{
+                background-color: transparent;
+            }
+        }
+        .react-radio-label{
+            color: $dsbl;
+        }
+    }
 }

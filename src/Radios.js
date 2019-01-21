@@ -9,7 +9,8 @@ export function Radio (props) {
     const chk = checked ? 'true' : null;
         const chkId = label ? (id || uid('radio')) : null;
         const lblId = label ? (id || uid('label')) : null;
-        const classname = classnames({
+        const tabIndex = disabled ? -1 : 0;
+        let classname = classnames({
             'react-radio': true,
             'check-after': checkAfter,
             disabled
@@ -22,8 +23,9 @@ export function Radio (props) {
             <span
                 aria-labelledby={lblId}
                 aria-checked={chk}
-                tabIndex="0"
-                className="react-radio-check"
+                role="radio"
+                tabIndex={tabIndex}
+                className="react-radio-button"
                 onKeyUp={onKey}
             />
         );
@@ -31,11 +33,11 @@ export function Radio (props) {
             <label
                 id={lblId}
                 htmlFor={chkId}
-                className="react-checkbox-label"
+                className="react-radio-label"
             >{label}</label>
         );
         return (
-            <div role="radio" className={classname} onClick={onClick} value={value} checked>
+            <div className={classname} onClick={onClick} value={value} checked>
                 {checkAfter && labelNode}
                 {checkAfter && checkNode}
                 {!checkAfter && checkNode}
@@ -47,7 +49,6 @@ export function Radio (props) {
 export default class Radios extends React.Component {
     constructor (props) {
         super();
-        console.log('props.defaultValue', props.defaultValue);
         this.uncontrolled = props.defaultValue !== undefined;
         if (!this.uncontrolled && !props.onChange) {
             console.error('Controlled Radios will need an `onChange` event')
@@ -72,17 +73,23 @@ export default class Radios extends React.Component {
             this.setState({ value });
             return;
         }
-        this.props.onChange({ value });
+        this.props.onChange( value );
     }
 
     onClick (e) {
-        const node = e.target.closest('[role="radio"]');
+        if (this.props.disabled) {
+            return;
+        }
+        const node = e.target.closest('.react-radio');
         this.select(node.getAttribute('value'));    
     }
 
     onKey (e) {
+        if (this.props.disabled) {
+            return;
+        }
         if (e.key === ' ' || e.key === 'Enter') {
-            const node = e.target.closest('[role="radio"]');
+            const node = e.target.closest('.react-radio');
             this.select(node.getAttribute('value'));  
         }
     }
@@ -92,21 +99,34 @@ export default class Radios extends React.Component {
     }
 
     render() { 
-        const { list = [], label } = this.props;
+        const { options = [], label, name, disabled } = this.props;
         const value = this.getValue();
-        const labelNode = !label ? node : <label id={this.labelId} className="react-radios-label">{label}</label>
-        
+        const labelNode = !label ? null : <label id={this.labelId} className="react-radios-label">{label}</label>
+        let classname = 'react-radios';
+        if (this.props.class || this.props.className) {
+            classname = `${classname} ${this.props.class || this.props.className}`;
+        }
+
         return ( 
-            <div className="react-radios" ref={this.onNode} role="radiogroup" aria-labelledby={this.labelId}>
+            <div 
+                className={classname}
+                ref={this.onNode}
+                role="radiogroup"
+                name={name}
+                aria-labelledby={this.labelId}
+                disabled={disabled}
+                >
                 {labelNode}
-                {list.map((item) => {
+                {options.map((item) => {
                     return <Radio 
                         checked={value === item.value}
+                        className={item.class || item.className}
                         label={item.label}
                         value={item.value}
                         key={item.value}
                         onClick={this.onClick}
                         onKey={this.onKey}
+                        disabled={item.disabled || disabled}
                     />
                 })}
             </div>

@@ -14,20 +14,24 @@ Currently the main component is a Dropdown, with useable sub-components: Popup a
 
 [See React Form in action on clubajax.io](https://clubajax.github.io/dist/react-form/index.html)
 
-### Accessibility
+## Accessibility
 
 React Form aims to achieve ADA AA 2.0 - Americans with Disabilities Act, version 2.0, "Double A" compliance (not triple A)
 
 Components have been tested for use without a mouse and with a screen reader.
 
-### Style
+## TypeScript Safe
+
+React Form comes with a `tsconfig.json` file for typings.
+
+## Style
 React Form is styled with SCSS, so a stylesheet will need to be imported:
 
     @import 'node_modules/@clubajax/react-form/lib/react-form.css';
 
 React Form is very lightly styled, using grays and moderate padding and margins, so it will be easy to override to suit the application's needs.
 
-### Dropdown Style
+### Dropdown/ActionMenu Style
 The Dropdown is an "inline" style, meaning that its popup is a descendant of the dropdown element tree, not an absolutely
 positioned DOMNode floating over the document. There are pros and cons to each style.
 
@@ -87,6 +91,19 @@ const options = [
  * **name** *[string, optional]*: The name of the component (as used in forms). Will change the event (see below)
  * **onChange** *[function, optional]*: The callback event when an item is selected (see Events below)
 
+### Radios
+ * **options** *[array, required]*: The items that will be used to create the radio buttons
+   * **value** *[string|integer, required]*: The unique identifier of the option
+   * **label** *[string|DomNode, required]*: The text that will display next to the radio button
+   * **class** *[string, optional]*: A className that will be appended to that radio button
+   * **disabled** *[boolean, optional]*: Will make that radio button non-selectable
+ * **value** *[boolean, optional]*: (Controlled) If provided, selects the radio with the matching value
+ * **defaultValue** *[boolean, optional]*: (Uncontrolled) If provided, selects the radio with teh matching value
+ * **label** *[string, optional]*: If provided, creates a label element above the radio buttons
+ * **checkAfter** *[boolean, optional]*: If true, the radio buttons will be rendered after the label
+ * **name** *[string, optional]*: The name of the component (as used in forms). Will change the event (see below)
+ * **onChange** *[function, optional]*: The callback event when an item is selected (see Events below)
+
 ### Dropdown
 
  * **options** *[array, required]*: The items that will be used to create the drop-down list
@@ -102,24 +119,6 @@ const options = [
  * **placeholder** *[string, optional]*: The button display if no item is selected (defaults to "Select one...")
  * **onChange** *[function, optional]*: The callback event when an item is selected (see Events below)
 
-### Events for Dropdown and Checkbox
-
-If the `name` prop is not used, the `onChange` event simply passes the `value`.
-
-If the name prop **is** used, the event has the folowing shape:
-
-```jsx harmony
-{
-    value: value,
-    name: props.name
-    [props.name]: value,
-    target: <DomNode> {
-        ...
-        value: value,
-        name: props.name
-    }
-}
-```
 ## ActionMenu
 
 ActionMenu is a button that opens a drop-down list. When an item is selected in the menu, an `onAction` event is called. The `onAction` event will
@@ -157,6 +156,25 @@ The List is a sub-component of the Dropdown, so it will look and work in a simil
  * **defaultValue** *[string|integer, optional]*: (Uncontrolled) If provided, sets the value of the List, and the display to the `label` of the `option` of that value
  * **onChange** *[function, optional]*: The callback event when an item is selected. It will pass the options item.
  * **isMenu** *[boolean, optional]*: Will clear selection on close.
+
+### Events for Dropdown, Radios, and Checkbox
+
+If the `name` prop is not used, the `onChange` event simply passes the `value`.
+
+If the name prop **is** used, the event has the following shape:
+
+```jsx harmony
+{
+    value: value,
+    name: props.name
+    [props.name]: value,
+    target: <DomNode> {
+        ...
+        value: value,
+        name: props.name
+    }
+}
+```
 
  ## License
 

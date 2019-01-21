@@ -37,6 +37,7 @@ declare module '@clubajax/react-form' {
         alias?: string;
         key?: string;
         className?: string;
+        disabled?: boolean;
     }
 
     export interface IDropdownProps {
@@ -54,4 +55,25 @@ declare module '@clubajax/react-form' {
 
     export class Dropdown extends React.Component<IDropdownProps> {}
 
+    export interface IRadioOption {
+        value: string;
+        label: string;
+        key?: string;
+        className?: string;
+        disabled?: boolean;
+    }
+
+    export interface IRadiosProps {
+        value?: string | null;
+        defaultValue?: string | null;
+        label?: string;
+        name?: string;
+        disabled?: boolean;
+        id?: string;
+        className?: string;
+        onChange?: any;
+        options?: IRadioOption[];
+    }
+
+    export class Radios extends React.Component<IRadiosProps> {}
 }
