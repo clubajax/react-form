@@ -56,7 +56,7 @@ $focus: rgb(201, 212, 233);
         }
 
     }
-    &.disabled{
+    &[disabled]{
         button{
             background-color: #ddd;
             color: #444;

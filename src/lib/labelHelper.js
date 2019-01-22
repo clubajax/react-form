@@ -10,6 +10,7 @@ const labelHelper = (props, type) => {
             id={labelId}
             htmlFor={inputId}
             className="react-label"
+            key="label"
         >{props.label}</label>
     );
 
