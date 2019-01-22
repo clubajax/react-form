@@ -72,7 +72,6 @@ export default class Checkbox extends React.Component {
     render () {
         const { checkAfter, label, disabled, className } = this.props;
         const checked = this.getValue();
-        console.log('checked', checked);
 
         const chkId = label ? (this.id || uid('checkbox')) : null;
         const lblId = label ? (this.id || uid('label')) : null;

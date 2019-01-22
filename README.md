@@ -2,7 +2,12 @@
 
 Basic form elements for use in React.
 
-Currently the main component is a Dropdown, with useable sub-components: Popup and List
+The components are Dropdown, Popup, List, ActionMenu, Radios, Checkbox
+
+### Why React Forms?
+
+There are many React libraries - unfortunately, because of the divide caused by CSS-in-JS, this cuts down on the libraies
+that will easily work in a project. Further factors, such as a code-bloated library, opinionated in style or icons
 
 ## Install
 
@@ -161,7 +166,7 @@ The List is a sub-component of the Dropdown, so it will look and work in a simil
 
 If the `name` prop is not used, the `onChange` event simply passes the `value`.
 
-If the name prop **is** used, the event has the following shape:
+If the name prop **is** used, the event has the following shape, for maximum versatility:
 
 ```jsx harmony
 {

@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import ActionMenu from '../src/ActionMenu';
 
-console.clear();
+// console.clear();
 
 const items = [
     {
@@ -21,8 +21,8 @@ function onAction (value) {
     console.log('value', value);
 }
 
-storiesOf('ActionMenu', module)
-    .add('Simple', () => (
+storiesOf('Action Menu', module)
+    .add('default', () => (
         <section>
             <ActionMenu options={items} onAction={onAction}>Action Menu</ActionMenu>
         </section>
