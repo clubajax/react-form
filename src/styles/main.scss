@@ -227,12 +227,12 @@ $focus: rgb(201, 212, 233);
 }
 
 $rsz: 14px;
-
-.react-radios-label{
-    display: block;
-    margin-bottom: 10px;
+.react-radios{
+    &>.react-label{
+        display: block;
+        margin-bottom: 10px;
+    }
 }
-
 .react-radios[disabled] .react-radios-label{
     color: $dsbl;
 }
@@ -265,17 +265,17 @@ $rsz: 14px;
             box-shadow: 0 0 3px 3px $focus;
         }
     }
-    .react-radio-label,
+    .react-label,
     .react-radio-button{
         align-self: center;
     }
-    .react-radio-label{
+    .react-label{
         margin: 0 10px 0 5px;
     }
-    &.check-after .react-radio-label{
+    &.check-after .react-label{
         margin: 0 5px 0 10px;
     }
-    &.disabled{
+    &[disabled]{
         pointer-events: none;
         .react-radio-button{
             pointer-events: none;
@@ -284,7 +284,7 @@ $rsz: 14px;
                 background-color: transparent;
             }
         }
-        .react-radio-label{
+        .react-label{
             color: $dsbl;
         }
     }

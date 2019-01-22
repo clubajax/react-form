@@ -77,13 +77,10 @@ export default class Checkbox extends React.Component {
         const { labelNode, labelId, inputId } = this.helper;
         const checked = this.getValue();
 
-        let classname = classnames({
+        const classname = classnames({
             'react-checkbox': true,
             'check-after': checkAfter
-        }, className);
-        // if (className) {
-        //     classname = `${classname} ${className}`;
-        // }
+        }, className, this.props.class);
 
         const checkNode = (
             <span

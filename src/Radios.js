@@ -1,49 +1,40 @@
 import React from 'react';
 import classnames from 'classnames';
 import uid from './lib/uid';
-import { func } from 'prop-types';
+import labelHelper from './lib/labelHelper';
 
 export function Radio (props) {
 
     const { checkAfter, checked, label, value, disabled, className, onClick, onKey, id } = props;
-    const chk = checked ? 'true' : null;
-        const chkId = label ? (id || uid('radio')) : null;
-        const lblId = label ? (id || uid('label')) : null;
-        const tabIndex = disabled ? -1 : 0;
-        let classname = classnames({
-            'react-radio': true,
-            'check-after': checkAfter,
-            disabled
-        });
-        if (className) {
-            classname = `${classname} ${className}`;
-        }
+    const { labelNode, labelId, inputId } = labelHelper(props, 'radio');
 
-        const checkNode = (
-            <span
-                aria-labelledby={lblId}
-                aria-checked={chk}
-                role="radio"
-                tabIndex={tabIndex}
-                className="react-radio-button"
-                onKeyUp={onKey}
-            />
-        );
-        const labelNode = (
-            <label
-                id={lblId}
-                htmlFor={chkId}
-                className="react-radio-label"
-            >{label}</label>
-        );
-        return (
-            <div className={classname} onClick={onClick} value={value} checked>
-                {checkAfter && labelNode}
-                {checkAfter && checkNode}
-                {!checkAfter && checkNode}
-                {!checkAfter && labelNode}
-            </div>
-        )
+    const chk = checked ? 'true' : null;
+    const tabIndex = disabled ? -1 : 0;
+    const classname = classnames({
+        'react-radio': true,
+        'check-after': checkAfter
+    }, className);
+
+    const checkNode = (
+        <span
+            id={inputId}
+            aria-labelledby={labelId}
+            aria-checked={chk}
+            role="radio"
+            tabIndex={tabIndex}
+            className="react-radio-button"
+            onKeyUp={onKey}
+        />
+    );
+
+    return (
+        <div className={classname} onClick={onClick} value={value} disabled={disabled} checked>
+            {checkAfter && labelNode}
+            {checkAfter && checkNode}
+            {!checkAfter && checkNode}
+            {!checkAfter && labelNode}
+        </div>
+    )
 }
 
 export default class Radios extends React.Component {
@@ -56,8 +47,7 @@ export default class Radios extends React.Component {
         this.state = {
             value: this.uncontrolled ? props.defaultValue : props.value
         };
-        this.id = props.id || uid('radiogroup');
-        this.labelId = props.label ? uid('label') : null;
+        this.helper = labelHelper(props, 'radiogroup');
 
         this.onClick = this.onClick.bind(this);
         this.onKey = this.onKey.bind(this);
@@ -101,11 +91,8 @@ export default class Radios extends React.Component {
     render() { 
         const { options = [], label, name, disabled } = this.props;
         const value = this.getValue();
-        const labelNode = !label ? null : <label id={this.labelId} className="react-radios-label">{label}</label>
-        let classname = 'react-radios';
-        if (this.props.class || this.props.className) {
-            classname = `${classname} ${this.props.class || this.props.className}`;
-        }
+        const { labelNode } = this.helper;
+        const classname = classnames('react-radios', this.props.class, this.props.className);
 
         return ( 
             <div 
