@@ -1,5 +1,10 @@
 $dsbl: #9e9e9e;
 $focus: rgb(201, 212, 233);
+
+.react-label{
+    font-size: 14px;
+}
+
 .react-button{
     border: 1px solid #666;
     background-color: #999;
@@ -193,30 +198,29 @@ $focus: rgb(201, 212, 233);
             transform: translate(-50%, -50%);
         }
     }
-    .react-checkbox-label{
+    .react-label{
         flex: 1 0 auto;
-        margin-left: 5px;
-        font-size: 14px;
+        margin: 0 10px 0 5px;
     }
     .react-checkbox-check,
-    .react-checkbox-label{
+    .react-label{
         cursor: pointer;
         align-self: center;
     }
 
     &.check-after{
-        .react-checkbox-label{
+        .react-label{
             margin-left: 0;
             margin-right: 5px;
         }
     }
-    &.disabled{
+    &[disabled]{
         pointer-events: none;
         .react-checkbox-check{
             pointer-events: none;
             border-color: $dsbl;
         }
-        .react-checkbox-label{
+        .react-label{
             color: $dsbl;
         }
     }

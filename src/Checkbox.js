@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
-import on from '@clubajax/on';
 import uid from './lib/uid';
+import labelHelper from './lib/labelHelper';
 
 export default class Checkbox extends React.Component {
 
@@ -12,10 +12,13 @@ export default class Checkbox extends React.Component {
             console.error('A controlled Checkbox will need an `onChange` event')
         }
         this.state = {
-            value: this.uncontrolled ? props.defaultValue : props.value,
-            labelId: props.label ? uid('label') : null
+            value: this.uncontrolled ? props.defaultValue : props.value
         };
+
+        this.helper = labelHelper(props, 'checkbox');
+
         this.id = props.id || uid('checkbox');
+
         this.onClick = this.onClick.bind(this);
         this.onKey = this.onKey.bind(this);
         this.onNode = this.onNode.bind(this);
@@ -70,38 +73,32 @@ export default class Checkbox extends React.Component {
     }
 
     render () {
-        const { checkAfter, label, disabled, className } = this.props;
+        const { checkAfter, disabled, className } = this.props;
+        const { labelNode, labelId, inputId } = this.helper;
         const checked = this.getValue();
 
-        const chkId = label ? (this.id || uid('checkbox')) : null;
-        const lblId = label ? (this.id || uid('label')) : null;
-        const classname = classnames({
+        let classname = classnames({
             'react-checkbox': true,
-            'check-after': checkAfter,
-            disabled
-        });
-        if (className) {
-            classname = `${classname} ${className}`;
-        }
+            'check-after': checkAfter
+        }, className);
+        // if (className) {
+        //     classname = `${classname} ${className}`;
+        // }
+
         const checkNode = (
             <span
+                id={inputId}
                 role="checkbox"
-                aria-labelledby={lblId}
+                aria-labelledby={labelId}
                 aria-checked={checked}
                 tabIndex="0"
                 className="react-checkbox-check"
                 onKeyPress={this.onKey}
             >{this.getIcon()}</span>
         );
-        const labelNode = (
-            <label
-                id={lblId}
-                htmlFor={chkId}
-                className="react-checkbox-label"
-            >{label}</label>
-        );
+
         return (
-            <div className={classname} onClick={this.onClick} ref={this.onNode}>
+            <div className={classname} onClick={this.onClick} disabled={disabled} ref={this.onNode}>
                 {checkAfter && labelNode}
                 {checkAfter && checkNode}
                 {!checkAfter && checkNode}

@@ -44,4 +44,7 @@ storiesOf('Checkbox', module)
     ))
     .add('Disabled', () => (
         <Checkbox label="My Checkbox Checked" onChange={onChange} defaultValue={true} disabled/>
+    ))
+    .add('With Class', () => (
+        <Checkbox label="My Checkbox Checked All Over" onChange={onChange} defaultValue={true} className="bordered" />
     ));
