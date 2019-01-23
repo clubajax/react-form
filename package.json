@@ -1,6 +1,6 @@
 {
   "name": "@clubajax/react-form",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Form components for React",
   "main": "lib/index.js",
   "typings": "./lib/react-form.d.ts",
