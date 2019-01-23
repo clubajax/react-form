@@ -1,6 +1,5 @@
 import React from 'react';
 import classnames from 'classnames';
-import uid from './lib/uid';
 import labelHelper from './lib/labelHelper';
 
 export function Radio (props) {

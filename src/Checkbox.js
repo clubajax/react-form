@@ -1,6 +1,5 @@
 import React from 'react';
 import classnames from 'classnames';
-import uid from './lib/uid';
 import labelHelper from './lib/labelHelper';
 
 export default class Checkbox extends React.Component {
@@ -16,8 +15,6 @@ export default class Checkbox extends React.Component {
         };
 
         this.helper = labelHelper(props, 'checkbox');
-
-        this.id = props.id || uid('checkbox');
 
         this.onClick = this.onClick.bind(this);
         this.onKey = this.onKey.bind(this);

@@ -160,7 +160,7 @@ storiesOf('List', module)
         <section key="3"><List options={options} defaultValue="b" label="List options" key="list" /></section>
     ]))
     .add('With Class', () => (
-        <section key="3"><List options={withClass} defaultValue="b" label="List options" key="list" /></section>
+        <section key="3"><List options={withClass} label="Katas" defaultValue="b" label="List options" key="list" /></section>
     ))
     .add('Controlled', () => (
         <section><Container /></section>

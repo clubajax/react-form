@@ -2,7 +2,6 @@ import React from 'react';
 import classnames from 'classnames';
 import Popup from './Popup';
 import List from './List';
-import uid from './lib/uid';
 import equal from './lib/equal';
 import labelHelper from './lib/labelHelper';
 

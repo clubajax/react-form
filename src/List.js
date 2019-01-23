@@ -2,6 +2,8 @@ import React from 'react';
 import classnames from 'classnames';
 import on from '@clubajax/on';
 import uid from './lib/uid';
+import labelHelper from './lib/labelHelper';
+
 
 const ARIA_ITEM_PREFIX = 'react-item-';
 
@@ -25,6 +27,8 @@ export default class List extends React.Component {
             focusIndex,
             value
         };
+
+        this.helper = labelHelper(props, 'list');
 
         this.onClick = this.onClick.bind(this);
         this.onChange = this.onChange.bind(this);
@@ -216,10 +220,10 @@ export default class List extends React.Component {
         }
     }
 
-    render () {
+    renderList () {
         const { options = [] } = this.props;
         const { listId, focusValue, className } = this.state;
-
+        const { labelId, inputId } = this.helper;
         const value = this.uncontrolled ? this.state.value : this.props.value;
 
         const selectedItem = options.find(item => item.value === value) || {};
@@ -234,9 +238,11 @@ export default class List extends React.Component {
 
         return (
             <ul
+                id={inputId}
                 aria-activedescendant={selectedId}
                 className={classname}
                 role="listbox"
+                aria-labelledby={labelId}
                 tabIndex={rootTabIndex}
                 onBlur={this.onBlur}
                 onFocus={this.onFocus}
@@ -283,6 +289,19 @@ export default class List extends React.Component {
                     );
                 })}
             </ul>
+        );
+    }
+
+    render () {
+        const { labelNode } = this.helper;
+        if (!labelNode) {
+            return this.renderList();
+        }
+        return (
+            <div className="react-list container">
+                {labelNode}
+                {this.renderList()}
+            </div>
         );
     }
 }
