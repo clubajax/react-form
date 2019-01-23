@@ -61,6 +61,7 @@ export default class Checkbox extends React.Component {
 
     onKey (e) {
         if (e.key === ' ' || e.key === 'Enter') {
+            e.preventDefault();
             this.toggle();
         }
     }

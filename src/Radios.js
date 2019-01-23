@@ -22,7 +22,7 @@ export function Radio (props) {
             role="radio"
             tabIndex={tabIndex}
             className="react-radio-button"
-            onKeyUp={onKey}
+            onKeyPress={onKey}
         />
     );
 
@@ -78,6 +78,7 @@ export default class Radios extends React.Component {
             return;
         }
         if (e.key === ' ' || e.key === 'Enter') {
+            e.preventDefault();
             const node = e.target.closest('.react-radio');
             this.select(node.getAttribute('value'));  
         }
