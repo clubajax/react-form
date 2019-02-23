@@ -86,7 +86,7 @@ export default class Checkbox extends React.Component {
                 role="checkbox"
                 aria-labelledby={labelId}
                 aria-checked={checked}
-                tabIndex="0"
+                tabIndex={0}
                 className="react-checkbox-check"
                 onKeyPress={this.onKey}
             >{this.getIcon()}</span>

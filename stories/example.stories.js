@@ -11,76 +11,93 @@ console.clear();
 const items = [
     {
         value: 'a',
-        label: 'Superman'
+        label: 'Punch!'
     }, {
         value: 'b',
-        label: 'Supermarket'
+        label: 'Kick!'
     }, {
         value: 'c',
-        label: 'Superfluous'
+        label: 'Elbow Smash!'
     }
 ];
 
 const skillLevels = [
-    { value: 'basic', label: 'Basic' },
-    { value: 'intermediate', label: 'Intermediate' },
-    { value: 'advanced', label: 'Advanced' },
+    { value: 'basic', label: 'Thwart attackers' },
+    { value: 'intermediate', label: 'Annihilate my enemies' },
+    { value: 'advanced', label: 'Strike fear into the hearts of all those around me' },
 ];
 
 const groups = [
     {
         type: 'group',
         label: 'Under belts'
-    },
-    {
+    },{
         value: 'a',
-        label: 'H Form 1'
+        label: 'Palm Heel to the Nose'
     }, {
         value: 'b',
-        label: 'H Form 2'
+        label: 'Elbow to the Temple'
     }, {
         value: 'c',
-        label: 'H Form 3'
-    }, {
-        value: 'd',
-        label: 'Tekki'
+        label: 'Punch to the Solar Plexis'
     }, {
         type: 'group',
         label: 'Brown belts'
     }, {
         value: 'e',
-        label: 'Chung mu'
+        label: 'Eye Gouge'
     }, {
         value: 'f',
-        label: 'Swishi no cone'
+        label: 'Rip out the Larynx'
     }, {
         type: 'group',
         label: 'Black belts'
     }, {
         value: 'g',
-        label: 'Kama Kata'
+        label: 'Yank out the Spinal Cord'
     }, {
         value: 'h',
-        label: 'Tonfa Kata'
+        label: 'Remove the Heart while still beating'
     }
 ];
 const radioOptions = [
-    { value: 'a', label: 'Radios AA'},
-    { value: 'b', label: 'Radios BB'},
-    { value: 'c', label: 'Radios CC'}
+    { value: 'a', label: 'No Experience' },
+    { value: 'b', label: 'Some Experience' },
+    { value: 'c', label: 'Very Experienced' },
+    { value: 'd', label: 'Mad Ninja Skillz' }
 ];
-function onChange (value) {
+function onChange(value) {
     console.log('change', value);
 }
 
 storiesOf('Example', module)
     .add('default', () => (
         <section>
-            <h2>Choose Your Curriculum</h2>
-            <Dropdown name="level" label="Skill Level" options={skillLevels} defaultValue={null} />
-            <Checkbox label="My Checkbox Checked" onChange={onChange} defaultValue={true}/>
-            <Radios options={radioOptions} defaultValue="b" />
-            <ActionMenu options={items} onChange={onChange}>Action Menu</ActionMenu>
-            <List name="katas" label="Choose Your Kata" options={groups} defaultValue={null}/> 
+            <h2>Choose Your Self Defense Curriculum</h2>
+            <section className="label-wrapper">
+                <label>
+                    <span>Forge your name here for eternity:</span>
+                    <input />
+                </label>
+            </section>
+            <section className="label-wrapper">
+                <label htmlFor="reason">Name all those who wronged you (comma delineated):</label>
+                <input id="reason" />
+            </section>
+            <section>
+                <Dropdown name="level" label="Skill Level You Wish to Attain:" options={ skillLevels } defaultValue={ null } />
+            </section>
+            <section>
+                <Checkbox label="I accept the danger level" onChange={ onChange } defaultValue={ true } />
+            </section>
+            <section>
+                <Radios label="Your current skillz:" options={ radioOptions } defaultValue="b" />
+            </section>
+            <section>
+                <ActionMenu options={ items } onChange={ onChange }>Perform Action:</ActionMenu>
+            </section>
+            <section>
+                <List name="katas" label="Choose Your Style" options={ groups } defaultValue={ null } />
+            </section>
         </section>
     ));
