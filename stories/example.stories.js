@@ -74,30 +74,30 @@ storiesOf('Example', module)
     .add('default', () => (
         <section>
             <h2>Choose Your Self Defense Curriculum</h2>
-            <section className="label-wrapper">
+            <div className="label-wrapper">
                 <label>
                     <span>Forge your name here for eternity:</span>
                     <input />
                 </label>
-            </section>
-            <section className="label-wrapper">
+            </div>
+            <div className="label-wrapper">
                 <label htmlFor="reason">Name all those who wronged you (comma delineated):</label>
                 <input id="reason" />
-            </section>
-            <section>
+            </div>
+            <div className="wrap">
                 <Dropdown name="level" label="Skill Level You Wish to Attain:" options={ skillLevels } defaultValue={ null } />
-            </section>
-            <section>
+            </div>
+            <div className="wrap">
                 <Checkbox label="I accept the danger level" onChange={ onChange } defaultValue={ true } />
-            </section>
-            <section>
+            </div>
+            <div className="wrap">
                 <Radios label="Your current skillz:" options={ radioOptions } defaultValue="b" />
-            </section>
-            <section>
+            </div>
+            <div className="wrap">
                 <ActionMenu options={ items } onChange={ onChange }>Perform Action:</ActionMenu>
-            </section>
-            <section>
+            </div>
+            <div className="wrap">
                 <List name="katas" label="Choose Your Style" options={ groups } defaultValue={ null } />
-            </section>
+            </div>
         </section>
     ));

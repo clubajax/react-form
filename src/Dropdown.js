@@ -27,7 +27,7 @@ export default class Dropdown extends React.Component {
     }
 
     constructor (props) {
-        super();
+        super(props);
         this.uncontrolled = props.defaultValue !== undefined;
         this.state = {
             value: null,
@@ -118,7 +118,7 @@ export default class Dropdown extends React.Component {
                 <div className="react-popup-container" value={value} ref={this.onNode}>
                     <button
                         id={inputId}
-                        aria-labelledby={labelId}
+                        // aria-labelledby={labelId}
                         aria-expanded={expanded}
                         aria-invalid={isInvalid}
                         aria-describedby={errorId}
@@ -140,7 +140,6 @@ export default class Dropdown extends React.Component {
                             options={options}
                             onChange={this.onChange}
                             value={value}
-
                         />
                     </Popup>
                 </div>

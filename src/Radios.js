@@ -38,7 +38,7 @@ export function Radio (props) {
 
 export default class Radios extends React.Component {
     constructor (props) {
-        super();
+        super(props);
         this.uncontrolled = props.defaultValue !== undefined;
         if (!this.uncontrolled && !props.onChange) {
             console.error('Controlled Radios will need an `onChange` event')
@@ -91,7 +91,7 @@ export default class Radios extends React.Component {
     render() { 
         const { options = [], label, name, disabled } = this.props;
         const value = this.getValue();
-        const { labelNode } = this.helper;
+        const { labelNode, labelId } = this.helper;
         const classname = classnames('react-radios', this.props.class, this.props.className);
 
         return ( 
@@ -100,7 +100,7 @@ export default class Radios extends React.Component {
                 ref={this.onNode}
                 role="radiogroup"
                 name={name}
-                aria-labelledby={this.labelId}
+                aria-labelledby={labelId}
                 disabled={disabled}
                 >
                 {labelNode}
