@@ -3,10 +3,11 @@ import classnames from 'classnames';
 import on from '@clubajax/on';
 import uid from './lib/uid';
 import labelHelper from './lib/labelHelper';
+import { clearTimeout } from 'timers';
 
 
 const ARIA_ITEM_PREFIX = 'react-item-';
-
+const SEARCH_TIMEOUT = 300;
 // TODO: search key
 
 export default class List extends React.Component {
@@ -178,7 +179,25 @@ export default class List extends React.Component {
             return node;
         };
 
+        let searchKeys = '';
+        let searchTimer;
+        const searchNode = (key) => { 
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(() => {
+                searchKeys = '';
+            }, SEARCH_TIMEOUT);
+            searchKeys = (searchKeys + key).toLowerCase();
+            let searchIndex = options.findIndex(opt => opt.label.toLowerCase().indexOf(searchKeys) === 0);
+            if (searchIndex > -1) {
+                return getNode(searchIndex);
+            }
+            return null;
+        }
+
         this.keyHandle = on(this.node, 'keydown', (e) => {
+            if (e.metaKey) {
+                return;
+            }
             const { focusValue } = this.state;
             let node;
             let index = focusValue === null ?  0 : this.props.options.findIndex(item => item.value === focusValue);
@@ -202,7 +221,11 @@ export default class List extends React.Component {
                     node = getNextNode(index);
                     break;
                 default:
-                    return;
+                    if (on.isAlphaNumeric(e.key)) {
+                        node = searchNode(e.key);
+                    } else {
+                        return;
+                    }
             }
             this.focus(node);
         });
