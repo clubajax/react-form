@@ -12,14 +12,26 @@
 
 const path = require("path");
 
+const files = {
+    test: /\.(jpg|png|svg)$/,
+    loader: 'file-loader',
+    options: {
+        name: '[name].[ext]',
+        context: path.resolve(__dirname, "../src/styles")
+    }
+};
+
+const scss = {
+    test: /\.scss$/,
+    loaders: [ "style-loader", "css-loader", "sass-loader" ],
+    include: path.resolve(__dirname, "../src/styles")
+}
+
 module.exports = {
   module: {
-    rules: [
-      {
-        test: /\.scss$/,
-        loaders: ["style-loader", "css-loader", "sass-loader"],
-        include: path.resolve(__dirname, "../src/styles")
-      }
+        rules: [
+        scss,
+        files
     ]
   }
 };

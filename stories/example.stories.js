@@ -5,6 +5,8 @@ import Dropdown from '../src/Dropdown';
 import List from '../src/List';
 import Checkbox from '../src/Checkbox';
 import Radios from '../src/Radios';
+import logo from '../src/styles/ca_star.svg';
+import { func } from 'prop-types';
 
 console.clear();
 
@@ -70,9 +72,58 @@ function onChange(value) {
     console.log('change', value);
 }
 
-storiesOf('Example', module)
-    .add('default', () => (
-        <section>
+storiesOf('Accessibility', module)
+    .add('Page', () => (
+        <div className="page">
+            <header role="banner">
+                <h1 tabIndex={ -1 }>
+                    <a href="https://github.com/clubajax/react-form">
+                        <img src={ logo } alt="Club AJAX logo, link to repository" />
+                    </a>
+                    <span>React Page Accessibility Example</span>
+                </h1>
+            </header>
+            <nav role="navigation">
+                <ul>
+                    <li><a href="#">Fitness</a></li>
+                    <li><a href="#">Nutrition</a></li>
+                    <li><a href="#">Fighting</a></li>
+                </ul>
+            </nav>
+            <article>
+                <main role="main">
+                    <h2>About the Club AJAX Self Defense System</h2>
+                    <p>
+                        The Club AJAX Self Defense System is a military self-defense and fighting system designed for developers
+                        that consists of a combination of techniques sourced from Boxing, Wrestling, Aikido, Judo, and Karate, along with
+                        realistic fight training. Club AJAX is also considered to be an early concept of MMA (Mixed Martial Arts)
+                        since it included both wrestling and striking elements.
+                    </p>
+                    <p>
+                        It is known for its focus on real-world situations, its extreme efficiency, and brutal
+                        counter-attacks. It was derived from the street-fighting experience of martial artist Mike Wilcox, who made use of his
+                        training as a boxer and wrestler as a means of defending front end developers against fascist Java and DOT NET groups.
+                    </p>
+                </main>
+                <aside role="complementary">
+                    Click nowhere to learn more about the Club AJAX Self Defense System
+                </aside>
+            </article>
+            <footer role="contentinfo">
+                <p>
+                    &copy; Copyright Club AJAX
+                </p>
+            </footer>
+        </div>
+    ))
+    .add('Form', () => (
+        <div className="page">
+            <h1 tabIndex={ -1 }>
+                <a href="https://github.com/clubajax/react-form">
+                    <img src={ logo } alt="Club AJAX logo, link to repository" />
+                </a>
+                <span>React Form Accessibility Example</span>
+            </h1>
             <h2>Choose Your Self Defense Curriculum</h2>
             <div className="label-wrapper">
                 <label>
@@ -99,5 +150,37 @@ storiesOf('Example', module)
             <div className="wrap">
                 <List name="katas" label="Choose Your Style" options={ groups } defaultValue={ null } />
             </div>
-        </section>
+        </div>
     ));
+
+
+let current;
+function onUrlChange() { 
+    const node = document.querySelector('#root h1');
+    console.log('change!', node);
+    if (node) {
+        node.focus();
+    }
+}
+
+function checkUrl() { 
+    const url = document.location.search;
+    if (url !== current) {
+        current = url;
+        onUrlChange();
+    }
+}
+
+setInterval(checkUrl, 500);
+
+setTimeout(() => {
+    const nav = document.querySelector('nav');
+    if (nav) {
+        [ ...nav.querySelectorAll('a') ].forEach((a) => { 
+            a.addEventListener('click', function (e) {
+                e.preventDefault();
+            });
+        })
+        
+    }
+});

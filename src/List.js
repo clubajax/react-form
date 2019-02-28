@@ -3,17 +3,16 @@ import classnames from 'classnames';
 import on from '@clubajax/on';
 import uid from './lib/uid';
 import labelHelper from './lib/labelHelper';
-import { clearTimeout } from 'timers';
-
 
 const ARIA_ITEM_PREFIX = 'react-item-';
-const SEARCH_TIMEOUT = 300;
-// TODO: search key
+const SEARCH_TIMEOUT = 400;
+let searchKeys = '';
+let searchTimer;
 
 export default class List extends React.Component {
 
     constructor (props) {
-        super();
+        super(props);
         this.uncontrolled = props.defaultValue !== undefined;
         let focusIndex = null;
         let value = null;
@@ -179,8 +178,6 @@ export default class List extends React.Component {
             return node;
         };
 
-        let searchKeys = '';
-        let searchTimer;
         const searchNode = (key) => { 
             clearTimeout(searchTimer);
             searchTimer = setTimeout(() => {
