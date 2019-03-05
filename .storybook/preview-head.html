@@ -20,6 +20,7 @@
     .page, 
     .wrap, 
     .label-wrapper{
+        position: relative;
         margin-bottom: 20px;
     }
     article{
@@ -123,5 +124,18 @@
     }
     h1 span{
         margin-top: 4px;
+    }
+    .skip-nav{
+        position: absolute;
+        top: -25px;
+        left: 0;
+        border: 1px solid blue;
+        background-color: white;
+        padding: 10px;
+        transform: translateY(-120%);
+        transition: transform 100ms ease-out;
+    }
+    .skip-nav:focus{
+        transform: translateY(0);
     }
 </style>

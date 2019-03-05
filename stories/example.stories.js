@@ -75,6 +75,7 @@ function onChange(value) {
 storiesOf('Accessibility', module)
     .add('Page', () => (
         <div className="page">
+            <a className="skip-nav" tabIndex={ 0 } href="/?selectedKind=Accessibility&selectedStory=Page&full=0&addons=1&stories=1&panelRight=0#main">Skip Navigation</a>
             <header role="banner">
                 <h1 tabIndex={ -1 }>
                     <a href="https://github.com/clubajax/react-form">
@@ -91,7 +92,7 @@ storiesOf('Accessibility', module)
                 </ul>
             </nav>
             <article>
-                <main role="main">
+                <main role="main" id="main">
                     <h2>About the Club AJAX Self Defense System</h2>
                     <p>
                         The Club AJAX Self Defense System is a military self-defense and fighting system designed for developers
@@ -99,6 +100,12 @@ storiesOf('Accessibility', module)
                         realistic fight training. Club AJAX is also considered to be an early concept of MMA (Mixed Martial Arts)
                         since it included both wrestling and striking elements.
                     </p>
+                    <div role="presentation">
+                        <code>div</code> is still read by screen reader, even though <code>role="presentation"</code>
+                    </div>
+                    <div aria-hidden="true">
+                        This <code>div</code> is not read by screen reader, because <code>aria-hidden="true"</code>
+                    </div>
                     <p>
                         It is known for its focus on real-world situations, its extreme efficiency, and brutal
                         counter-attacks. It was derived from the street-fighting experience of martial artist Mike Wilcox, who made use of his
@@ -157,7 +164,6 @@ storiesOf('Accessibility', module)
 let current;
 function onUrlChange() { 
     const node = document.querySelector('#root h1');
-    console.log('change!', node);
     if (node) {
         node.focus();
     }
