@@ -168,6 +168,7 @@ function onUrlChange() {
     if (node) {
         node.focus();
     }
+    setupPage();
 }
 
 function checkUrl() { 
@@ -178,12 +179,10 @@ function checkUrl() {
     }
 }
 
-setInterval(checkUrl, 500);
-
-setTimeout(() => {
+function setupPage() { 
     const nav = document.querySelector('nav');
     if (nav) {
-        [...nav.querySelectorAll('a')].forEach((a) => {
+        [ ...nav.querySelectorAll('a') ].forEach((a) => {
             a.addEventListener('click', function (e) {
                 e.preventDefault();
             });
@@ -207,4 +206,7 @@ setTimeout(() => {
             console.log('error.innerHTML', error.innerHTML);
         });
     }
-});
+}
+setInterval(checkUrl, 500);
+
+setTimeout(setupPage);
