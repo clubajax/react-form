@@ -75,7 +75,7 @@ function onChange(value) {
 storiesOf('Accessibility', module)
     .add('Page', () => (
         <div className="page">
-            <a className="skip-nav" tabIndex={ 0 } href="/?selectedKind=Accessibility&selectedStory=Page&full=0&addons=1&stories=1&panelRight=0#main">Skip Navigation</a>
+            <a className="skip-nav" tabIndex={ 0 } href="#">Skip Navigation</a>
             <header role="banner">
                 <h1 tabIndex={ -1 }>
                     <a href="https://github.com/clubajax/react-form">
@@ -92,10 +92,10 @@ storiesOf('Accessibility', module)
                 </ul>
             </nav>
             <article>
-                <main role="main" id="main">
+                <main role="main" id="main" tabIndex={-1}>
                     <h2>About the Club AJAX Self Defense System</h2>
                     <p>
-                        The Club AJAX Self Defense System is a military self-defense and fighting system designed for developers
+                        The Club AJAX <em>Self Defense System</em> is a military self-defense and fighting system designed for developers
                         that consists of a combination of techniques sourced from Boxing, Wrestling, Aikido, Judo, and Karate, along with
                         realistic fight training. Club AJAX is also considered to be an early concept of MMA (Mixed Martial Arts)
                         since it included both wrestling and striking elements.
@@ -135,7 +135,8 @@ storiesOf('Accessibility', module)
             <div className="label-wrapper">
                 <label>
                     <span>Forge your name here for eternity:</span>
-                    <input />
+                    <input id="input-1" />
+                    <div id="error-1" className="field-error" aria-live="assertive"></div>
                 </label>
             </div>
             <div className="label-wrapper">
@@ -182,11 +183,28 @@ setInterval(checkUrl, 500);
 setTimeout(() => {
     const nav = document.querySelector('nav');
     if (nav) {
-        [ ...nav.querySelectorAll('a') ].forEach((a) => { 
+        [...nav.querySelectorAll('a')].forEach((a) => {
             a.addEventListener('click', function (e) {
                 e.preventDefault();
             });
-        })
-        
+        });
+    }
+    const skip = document.querySelector('a.skip-nav');
+    if (skip) {
+        skip.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('main').focus();
+            return false;
+        });
+    }
+
+    const msg = '<span className="icon" aria-hidden="true">⚠</span>It is required that you forge your name here for eternity';
+    const input = document.getElementById('input-1');
+    const error = document.getElementById('error-1');
+    if (input) {
+        input.addEventListener('blur', () => {
+            error.innerHTML = (!!input.value ? '' : msg);
+            console.log('error.innerHTML', error.innerHTML);
+        });
     }
 });
